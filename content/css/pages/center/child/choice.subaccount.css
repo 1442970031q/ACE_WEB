@@ -1,0 +1,84 @@
+﻿.van-search--show-action {
+    position: fixed;
+    width: 100%;
+    background: rgb(246, 246, 246) !important;
+}
+
+.van-field__control {
+    height: 24px;
+}
+
+.list_content {
+    width: calc(100% - 20px);
+    margin: 0 auto;
+    margin-top: 10px;
+    padding-bottom: 10px;
+    padding-top: 39px;
+}
+
+    .list_content .list_items {
+        overflow: hidden;
+        border-radius: 6px;
+    }
+
+        .list_content .list_items .list_item {
+            padding: 10px;
+            background-color: white;
+            border-bottom: 1px solid #f9f9f9;
+        }
+
+            .list_content .list_items .list_item:active {
+                background-color: #f9f9f9;
+            }
+
+            .list_content .list_items .list_item:last-child {
+                border-bottom: 0;
+            }
+
+            .list_content .list_items .list_item .avatar {
+                float: left;
+                width: 43px;
+                height: 43px;
+                border-radius: 50%;
+                border: 1px solid #efefef;
+            }
+
+            .list_content .list_items .list_item .list_middle {
+                float: left;
+                width: calc(100% - 100px);
+                height: 45px;
+                padding-left: 10px;
+            }
+
+                .list_content .list_items .list_item .list_middle .fn {
+                    font-weight: bold;
+                    font-size: .9em;
+                    line-height: 25px;
+                    color: #5c6875;
+                }
+
+                .list_content .list_items .list_item .list_middle .mn {
+                    font-size: .7em;
+                    line-height: 20px;
+                    color: #5c6875;
+                }
+
+            .list_content .list_items .list_item .list_right {
+                float: left;
+                width: 90px;
+                height: 45px;
+                text-align: center;
+            }
+
+                .list_content .list_items .list_item .list_right .number {
+                    font-size: 1.1em;
+                    line-height: 25px;
+                    font-weight: bold;
+                    color: #5c6875;
+                }
+
+                .list_content .list_items .list_item .list_right .text {
+                    font-size: .7em;
+                    line-height: 20px;
+                    color: #5c6875;
+                }

@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover" />
+    <title></title>
+    <link href="../../content/css/base.css" rel="stylesheet" />
+    <link href="../../content/css/vant.css" rel="stylesheet" />
+    <link href="../../content/css/pages/secondpage/tran.success.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <div id="app">
+        <div id="app-head" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+            <i id="app-back-button" class="iconfont iconzuo right-back"></i>
+            <div class="app-head-text" v-text="language.TITLE_TEXT"></div>
+        </div>
+        <div id="app-content">
+            <div class="tip">
+                <i class="iconfont iconzhengque icon"></i>
+                <p class="text" v-text="request.title"></p>
+            </div>
+            <p class="context" v-text="request.text"></p>
+            <button class="confirm_button mt-15" v-text="language.BUTTON_2" @click="window.location = '../center/my.fans.tree.html?pi=' + APP.GLOBAL.queryString('parentId')">關閉頁面</button>
+        </div>
+    </div>
+    <script src="../../content/js/vue.js"></script>
+    <script src="../../content/js/vant.min.js"></script>
+    <script src="../../content/js/base.js"></script>
+    <script src="../../content/js/pages/secondpage/tran.success.js"></script>
+</body>
+</html>

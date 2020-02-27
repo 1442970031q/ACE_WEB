@@ -1,0 +1,232 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover" />
+    <title></title>
+    <link href="../content/css/base.css" rel="stylesheet" />
+    <link href="../content/css/vant.css" rel="stylesheet" />
+    <link href="../content/css/pages/center.css" rel="stylesheet" />
+    <link href="../content/css/bottom.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="app">
+        <div id="app-head" class="fixed bg-none" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+
+        </div>
+        <div id="app-content" v-if="isInstallLanuage">
+            <div class="top_content" v-cloak>
+                <svg v-bind:width="screenWidth" height="150" class="bg">
+                    <path v-bind:d="'M0,0 L' + screenWidth + ',0 ' + screenWidth + ',130Q' + (screenWidth / 2) + ',170 0,130'" fill="#068dfe"></path>
+                </svg>
+                <div class="top_bg"></div>
+                <div class="profile" v-bind:style="{'top': (45 + statusbarHeight) + 'px'}">
+                    <div class="flow_number clearfix">
+                        <span class="text">ID</span>
+                        <span class="number" v-text="currentUser.FlowNumber"></span>
+                    </div>
+                    <div class="avatar clearfix" @click="isPassowrdShow = true">
+                        <img v-lazy="currentUser.AvatarImage" class="image" />
+                        <div class="avatar_right">
+                            <p class="nn" v-text="currentUser.NickName"></p>
+                            <p class="txt" v-text="language.PROFILE_TEXT">點擊查看個人資料</p>
+                        </div>
+                    </div>
+                    <ul class="info">
+                        <li class="van-hairline--right">
+                            <p class="value red" v-if="currentUser.Credit >= 5">
+                                <i v-for="i in 5" class="iconfont iconxin-copy"></i>
+                            </p>
+                            <p class="value red" v-else-if="currentUser.Credit > 0 && currentUser.Credit < 5">
+                                <i v-for="i in 5" class="iconfont iconxin-copy"></i>
+                            </p>
+                            <p class="value red" v-else>
+                                <span>無</span>
+                            </p>
+                            <p class="text" v-text="language.TOP_UL_TEXT_1">交易信用</p>
+                        </li>
+                        <li class="van-hairline--right">
+                            <p class="value zs" v-if="currentUser.InvestmentLevel.StarNumber >= 5">
+                                <i v-for="i in 5" class="iconfont iconxing"></i>
+                            </p>
+                            <p class="value zs" v-else-if="currentUser.InvestmentLevel.StarNumber > 0 && currentUser.InvestmentLevel.StarNumber < 5">
+                                <i v-for="i in currentUser.InvestmentLevel.StarNumber" class="iconfont iconxing"></i>
+                            </p>
+                            <p class="value zs" v-else>
+                                無
+                            </p>
+                            <p class="text" v-text="language.TOP_UL_TEXT_2">投資星級</p>
+                        </li>
+                        <li>
+                            <p class="value f-8" v-text="regTime"></p>
+                            <p class="text" v-text="language.TOP_UL_TEXT_3">注冊時間</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="menus" v-cloak v-bind:style="{'paddingTop': 150 + (25 + statusbarHeight) + 'px'}">
+                <div class="block">
+                    <p class="title" v-text="language.BLOCK_1.TITLE">我的資產</p>
+                    <div class="content">
+                        <ul class="items">
+                            <li @click="gotoLightPage('sell.acePage', 'center/sell.ace')">
+                                <i class="iconfont iconicon-test2 icon c1"></i>
+                                <p class="text" v-text="language.BLOCK_1.MENU_1">出售ACE</p>
+                            </li>
+                            <li @click="gotoLightPage('sell.epPage', 'center/sell.ep')">
+                                <i class="iconfont iconicon icon  c2"></i>
+                                <p class="text" v-text="language.BLOCK_1.MENU_2">出售EP</p>
+                            </li>
+                            <li @click="gotoLightPage('ep.to.rpPage', 'center/ep.to.rp')">
+                                <i class="iconfont iconmanual-install icon  c3"></i>
+                                <p class="text" v-text="language.BLOCK_1.MENU_3">EP轉RP</p>
+                            </li>
+                            <li @click="gotoLightPage('ep.to.spPage', 'center/ep.to.sp')">
+                                <i class="iconfont iconmanual-install icon  c4"></i>
+                                <p class="text" v-text="language.BLOCK_1.MENU_4">EP轉SP</p>
+                            </li>
+                            <li @click="gotoLightPage('rp.to.spPage', 'center/rp.to.sp')">
+                                <i class="iconfont iconmanual-install icon  c5"></i>
+                                <p class="text" v-text="language.BLOCK_1.MENU_5">RP轉SP</p>
+                            </li>
+                            <li @click="gotoLightPage('rp.outPage', 'center/rp.out')">
+                                <i class="iconfont iconzhuanchu icon c6"></i>
+                                <p class="text" v-text="language.BLOCK_1.MENU_6">RP轉出</p>
+                            </li>
+                            <li @click="gotoLightPage('ep.outPage', 'center/ep.out')">
+                                <i class="iconfont iconhujiaozhuanchu icon c7"></i>
+                                <p class="text" v-text="language.BLOCK_1.MENU_7">EP轉出</p>
+                            </li>
+                            <!--<li v-if="(currentUser.LevelNumber >= currentUser.MinCommitLevelNumber) || currentUser.IsService"
+                            @click="gotoLightPage('rechargePage', 'center/recharge')">
+                            <i class="iconfont iconUSDT icon c1"></i>
+                            <p class="text" v-text="language.BLOCK_1.MENU_8">充值RP</p>
+                        </li>-->
+                            <!--<li @click="gotoLightPage('account.incomePage', 'center/account.income')">
+                            <i class="iconfont iconleijishouyi icon c8"></i>
+                            <p class="text" v-text="language.BLOCK_1.MENU_9">賬戶收益</p>
+                        </li>-->
+                        </ul>
+                    </div>
+                </div>
+                <div class="block">
+                    <p class="title" v-text="language.BLOCK_2.TITLE">市場管理</p>
+                    <div class="content">
+                        <ul class="items">
+                            <li @click="gotoDarkPage('sub.accountPage', 'center/sub.account')">
+                                <i class="iconfont iconhaoyouduizhan icon c7"></i>
+                                <p class="text" v-text="language.BLOCK_2.MENU_1">子賬戶管理</p>
+                            </li>
+                            <li @click="gotoDarkPage('my.friendPage', 'center/my.friend')">
+                                <i class="iconfont iconhaoyouxuanzhong icon c6"></i>
+                                <p class="text" v-text="language.BLOCK_2.MENU_2">我的好友</p>
+                            </li>
+                            <li @click="gotoDarkPage('my.fans.listPage', 'center/my.fans.list')">
+                                <i class="iconfont iconjiegoushu icon c5"></i>
+                                <p class="text" v-text="language.BLOCK_2.MENU_3">我的粉絲(表)</p>
+                            </li>
+                            <li @click="gotoDarkPage('my.fans.treePage', 'center/my.fans.tree')">
+                                <i class="iconfont iconjiegouyansheng icon c3"></i>
+                                <p class="text" v-text="language.BLOCK_2.MENU_4">我的粉絲(圖)</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="block">
+                    <p class="title" v-text="language.BLOCK_3.TITLE">財務管理</p>
+                    <div class="content">
+                        <ul class="items">
+                            <li @click="gotoDarkPage('profitPage', 'center/profit')">
+                                <i class="iconfont iconqianbao icon c2"></i>
+                                <p class="text" v-text="language.BLOCK_3.MENU_1">收益明細</p>
+                            </li>
+                            <li @click="gotoDarkPage('business.centerPage', 'center/business.center')">
+                                <i class="iconfont iconjiaoyi2 icon c3"></i>
+                                <p class="text" v-text="language.BLOCK_3.MENU_7">買賣中心</p>
+                            </li>
+                            <li @click="gotoDarkPage('rp.recordPage', 'center/records/rp.record')">
+                                <i class="iconfont iconzimur icon c4"></i>
+                                <p class="text" v-text="language.BLOCK_3.MENU_2">RP記錄</p>
+                            </li>
+                            <li @click="gotoDarkPage('sp.recordPage', 'center/records/sp.record')">
+                                <i class="iconfont iconzimus icon c5"></i>
+                                <p class="text" v-text="language.BLOCK_3.MENU_3">SP記錄</p>
+                            </li>
+                            <li @click="gotoDarkPage('ep.recordPage', 'center/records/ep.record')">
+                                <i class="iconfont iconzimue icon c6"></i>
+                                <p class="text" v-text="language.BLOCK_3.MENU_4">EP記錄</p>
+                            </li>
+                            <li @click="gotoDarkPage('ep.out.recordPage', 'center/records/ep.out.record')">
+                                <i class="iconfont iconzhuanchu1 icon c7"></i>
+                                <p class="text" v-text="language.BLOCK_3.MENU_5">EP轉出記錄</p>
+                            </li>
+                            <li @click="gotoDarkPage('ep.in.recordPage', 'center/records/ep.in.record')">
+                                <i class="iconfont iconzhuanru icon  c8"></i>
+                                <p class="text" v-text="language.BLOCK_3.MENU_6">EP轉入記錄</p>
+                            </li>
+                            <li @click="gotoDarkPage('split.recordPage', 'center/split.record')">
+                                <i class="iconfont iconchaifen icon c1"></i>
+                                <p class="text" v-text="language.BLOCK_3.MENU_11">拆分記錄</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="block mb_none">
+                    <p class="title" v-text="language.BLOCK_4.TITLE">安全設置</p>
+                    <div class="content">
+                        <ul class="items">
+                            <li v-if="currentUser.IsBindGAuthorize"
+                                @click="gotoDarkPage('activation.codePage', 'center/google/activation.code')">
+                                <i class="iconfont iconjurassic_quanxian icon c1"></i>
+                                <p class="text" v-text="language.BLOCK_4.MENU_6"></p>
+                            </li>
+                            <li v-else @click="gotoDarkPage('google.authPage', 'center/google/google.auth')">
+                                <i class="iconfont iconweb__gugeyanzheng icon c1"></i>
+                                <p class="text" v-text="language.BLOCK_4.MENU_5"></p>
+                            </li>
+                            <li @click="gotoDarkPage('change.passwordPage', 'center/security/change.password')">
+                                <i class="iconfont icondenglu icon c5"></i>
+                                <p class="text" v-text="language.BLOCK_4.MENU_2">登錄密碼</p>
+                            </li>
+                            <li @click="gotoDarkPage('change.pinPage', 'center/security/change.pin')">
+                                <i class="iconfont iconsuo icon c7"></i>
+                                <p class="text" v-text="language.BLOCK_4.MENU_3">交易密碼</p>
+                            </li>
+                            <li @click="logoutAccount">
+                                <i class="iconfont icontuichu icon c2"></i>
+                                <p class="text" v-text="language.BLOCK_4.MENU_4">退出登錄</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <van-dialog v-model="isPassowrdShow"
+                    show-cancel-button
+                    v-bind:before-close="confirmDialog"
+                    v-bind:confirm-button-text="language.DIALOG_BUTTON_1"
+                    v-bind:cancel-button-text="language.DIALOG_BUTTON_2">
+            <h4 class="dialog_title" v-text="language.DIALOG_TITLE"></h4>
+            <van-field v-model="form.pin"
+                       type="password"
+                       v-bind:label="language.DIALOG_LABEL"
+                       v-bind:placeholder="language.DIALOG_PLACEHOLDER" />
+        </van-dialog>
+        <div id="bottom" class="panel pos van-hairline--top">
+            <ul id="bottom-menus-items" class="menus clearfix">
+                <li v-for="(item, index) in menus"
+                    v-bind:key="index"
+                    v-bind:class="{'active': currentIndex === item.index}"
+                    @click="window.location = item.url">
+                    <i class="iconfont icon" v-bind:class="[currentIndex === item.index ? item.active : item.default]"></i>
+                    <p class="menus-text" v-text="item.text"></p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script src="../content/js/vue.js"></script>
+    <script src="../content/js/vant.min.js"></script>
+    <script src="../content/js/base.js"></script>
+    <script src="../content/js/pages/center.js"></script>
+</body>
+</html>

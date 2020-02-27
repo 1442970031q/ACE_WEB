@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title></title>
+    <link href="../../../content/css/vant.css" rel="stylesheet" />
+    <link href="../../../content/css/base.css" rel="stylesheet" />
+    <link href="../../../content/css/pages/center/google/activation.code.css" rel="stylesheet" />
+    <script src="html5plus://ready"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="bg"></div>
+        <div id="app-head" class="fixed" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+            <i id="app-back-button" class="iconfont iconzuo right-back"></i>
+            <div class="app-head-text" v-text="language.TITLE_TEXT"></div>
+            <button v-if="!isActive"
+                    class="submit-button" 
+                    v-text="language.SUBMIT_BUTTON" 
+                    @click="gotoUnbind">解除綁定</button>
+        </div>
+        <div id="app-content" v-bind:style="{'paddingTop': (45 + statusbarHeight) + 'px'}">
+            <div v-if="!isActive">
+                <van-password-input v-bind:value="form.gCode"
+                                    v-bind:mask="false"
+                                    v-bind:focused="true"
+                                    v-bind:info="language.PASSWORD_INFO"></van-password-input>
+                <van-number-keyboard v-bind:show="true"
+                                     @input="onInput"
+                                     @delete="onDelete"></van-number-keyboard>
+            </div>
+            <div v-else v-cloak class="box">
+                <i class="iconfont icon-jurassic_quanxian"></i>
+                <div class="key">
+                    <p class="title" v-text="language.BOX_TITLE">您的激活碼（用于协助好友激活Google验证）</p>
+                    <input id="aCode" readonly v-bind:value="pageModel.activeCode" />
+                </div>
+                <button class="confirm_button"
+                        v-text="language.BUTTON_TEXT"
+                        data-clipboard-target="#aCode">
+                    複製激活碼
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="../../../content/js/vue.js"></script>
+    <script src="../../../content/js/vant.min.js"></script>
+    <script src="../../../content/js/base.js"></script>
+    <script src="../../../content/js/clipboard.min.js"></script>
+    <script src="../../../content/js/pages/center/google/activation.code.js"></script>
+</body>
+</html>

@@ -1,0 +1,280 @@
+﻿.van-tabs__wrap {
+    top: inherit;
+    position: fixed;
+}
+
+.van-hairline--top-bottom::after {
+    border-top-width: 0;
+}
+
+.van-tab {
+    color: #444444;
+}
+
+.van-tab--active {
+    color: #068dfe;
+}
+
+.van-tabs__line {
+    background-color: #068dfe;
+}
+
+.list {
+    width: calc(100% - 20px);
+    margin: 0 auto;
+}
+
+    .list > li {
+        margin: 10px 0;
+        background-color: white;
+        border-radius: 4px;
+        padding: 10px;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        box-shadow: 0px 0px 10px #f1f1f1;
+    }
+
+        .list > li .top {
+            height: 30px;
+        }
+
+            .list > li .top .fn {
+                float: left;
+                width: calc(100% - 100px);
+                height: 30px;
+                line-height: 30px;
+                color: #5c6875;
+                font-size: .8em;
+            }
+
+            .list > li .top .state {
+                float: left;
+                width: 100px;
+                line-height: 30px;
+                text-align: right;
+                font-size: .8em;
+                color: #8c8c8c;
+            }
+
+        .list > li .info {
+            display: flex;
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px 0;
+            box-sizing: border-box;
+            border-radius: 4px;
+        }
+
+            .list > li .info li {
+                width: 33.33333%;
+                text-align: center;
+            }
+
+            .list > li .info.w50 li {
+                width: 50%;
+            }
+
+            .list > li .info li p.value {
+                font-size: 1.2em;
+                height: 20px;
+                line-height: 20px;
+                color: #5c6875;
+            }
+
+                .list > li .info li p.value.red {
+                    color: red;
+                }
+
+            .list > li .info li p.text {
+                font-size: .7em;
+                height: 20px;
+                line-height: 20px;
+                color: #b9b9b9;
+                margin-top: 5px;
+            }
+
+        .list > li .time {
+            display: block;
+            height: 25px;
+            line-height: 25px;
+            font-size: .8em;
+            color: #b9b9b9;
+            margin-top: 10px;
+        }
+
+            .list > li .time .icons {
+                float: left;
+                display: flex;
+                height: 25px;
+                align-items: center;
+            }
+
+                .list > li .time .icons img {
+                    display: block;
+                    height: 20px;
+                    margin-right: 10px;
+                }
+
+            .list > li .time .mp {
+                float: left;
+            }
+
+                .list > li .time .mp a {
+                    color: #b9b9b9;
+                }
+
+            .list > li .time .time_text {
+                float: right;
+            }
+
+        .list > li .bottom {
+            margin-top: 10px;
+            text-align: left;
+            padding-top: 10px;
+        }
+
+.van-button--info {
+    color: #fff;
+    background-color: #068dfe;
+    border: 1px solid #068dfe;
+}
+
+.default.van-button--default {
+    color: #8e8e8e;
+}
+
+.confirm_input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    height: 45px;
+    text-align: center;
+    background-color: #f9f9f9;
+    margin-top: 15px;
+    font-size: .9em;
+}
+
+.left {
+    float: left;
+    margin-right: 5px;
+}
+
+.full {
+    width: 100%;
+}
+
+.complaint,
+.proof {
+    width: calc(100% - 20px);
+    border-radius: 8px;
+    bottom: 35px;
+    overflow: hidden;
+}
+
+.proof {
+    padding-bottom: 50px;
+}
+
+    .proof .proof_inner {
+        display: flex;
+        height: 200px;
+    }
+
+        .proof .proof_inner .p_left {
+            width: 50%;
+        }
+
+            .proof .proof_inner .p_left .title,
+            .proof .proof_inner .p_right .title {
+                text-align: center;
+                font-size: .9em;
+                height: 35px;
+                line-height: 35px;
+                color: #5c6875;
+            }
+
+            .proof .proof_inner .p_left .plus {
+                width: calc(100% - 10px);
+                height: 160px;
+                text-align: center;
+                line-height: 150px;
+                font-size: 4em;
+                background-color: #f9f9f9;
+                margin: 0 auto;
+                margin-bottom: 5px;
+                color: #e4e4e4;
+                font-weight: bold;
+                border-radius: 4px;
+                overflow: hidden;
+                position: relative;
+            }
+
+                .proof .proof_inner .p_left .plus .file {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    height: 160px;
+                    opacity: 0;
+                }
+
+                .proof .proof_inner .p_left .plus img {
+                    display: block;
+                    height: 100%;
+                    margin: auto;
+                }
+
+        .proof .proof_inner .p_right {
+            width: 50%;
+            height: 200px;
+        }
+
+            .proof .proof_inner .p_right .textarea_full {
+                width: calc(100% - 5px);
+                padding: 10px;
+                font-size: .8em;
+                height: 160px;
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                background-color: #f9f9f9;
+                border-radius: 4px;
+                resize: none;
+            }
+
+    .proof .actions {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        height: 50px;
+        display: flex;
+    }
+
+        .proof .actions .confirm_button {
+            width: 50%;
+            margin: 0;
+            border-radius: 0;
+            border-bottom-right-radius: 8px;
+        }
+
+            .proof .actions .confirm_button.normal {
+                background-color: #e2e2e2;
+                border-radius: 0;
+                border-bottom-left-radius: 8px;
+            }
+
+                .proof .actions .confirm_button.normal:active {
+                    background-color: #d0d0d0;
+                }
+
+.complaint .textarea_full {
+    width: 100%;
+    padding: 10px;
+    font-size: .9em;
+    height: 120px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin-bottom: 50px;
+}

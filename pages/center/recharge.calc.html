@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title></title>
+    <link href="../../content/css/vant.css" rel="stylesheet" />
+    <link href="../../content/css/base.css" rel="stylesheet" />
+    <style>
+        .input_group .input_line .input_control {
+            font-size: .9em;
+        }
+    </style>
+    
+</head>
+<body>
+    <div id="app">
+        <div id="app-head" class="van-hairline--bottom" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+            <i id="app-back-button" class="iconfont iconzuo right-back"></i>
+            <p class="app-head-text" v-text="language.TITLE_TEXT"></p>
+        </div>
+        <div id="app-content">
+            <div v-if="isLoading" class="loading-box">
+                <van-loading color="black"></van-loading>
+                <p class="loading-text" v-text="language.LOADING_TEXT"></p>
+            </div>
+            <div v-else v-cloak>
+                <div class="input_group">
+                    <div class="input_line van-hairline--bottom">
+                        <span class="input_text" v-text="language.INPUT_TEXT_1">RP價格</span>
+                        <div class="input_control r-1" v-text="pageModel.RPPrice"></div>
+                        <span class="arrow">CNY</span>
+                    </div>
+                    <div class="input_line">
+                        <span class="input_text" v-text="language.INPUT_TEXT_2">USDT價格</span>
+                        <div class="input_control r-1" v-text="pageModel.USDTPrice"></div>
+                        <span class="arrow">CNY</span>
+                    </div>
+                </div>
+                <div class="input_group">
+                    <div class="input_line van-hairline--bottom">
+                        <span class="input_text" v-text="language.INPUT_TEXT_3">數量</span>
+                        <div class="input_control" v-bind:class="{'gray': !form.amount}" v-text="form.amount ? form.amount : language.INPUT_PLACEHOLDER_3"></div>
+                    </div>
+                    <div class="input_line">
+                        <span class="input_text" v-text="language.INPUT_TEXT_4">約充值</span>
+                        <div class="input_control r-1 b" v-text="form.amount ? displayAmount : '0'"></div>
+                        <span class="arrow">USDT</span>
+                    </div>
+                </div>
+                <van-number-keyboard v-bind:show="!isLoading" extra-key="." @input="onInput" @delete="onDelete" />
+            </div>
+        </div>
+    </div>
+    <script src="../../content/js/vue.js"></script>
+    <script src="../../content/js/vant.min.js"></script>
+    <script src="../../content/js/base.js"></script>
+    <script src="../../content/js/pages/center/recharge.calc.js"></script>
+</body>
+</html>

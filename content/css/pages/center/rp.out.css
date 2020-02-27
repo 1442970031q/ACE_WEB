@@ -1,0 +1,67 @@
+﻿#app-head {
+    background-color: #068dfe;
+    color: white;
+}
+
+.sell_info {
+    background-color: white;
+    margin: 0 auto;
+    padding: 10px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: #068dfe;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+    .sell_info ul {
+        display: flex;
+    }
+
+        .sell_info ul li {
+            width: 100%;
+            text-align: left;
+        }
+
+            .sell_info ul li .text {
+                font-size: .8em;
+                height: 20px;
+                line-height: 20px;
+                color: white;
+            }
+
+            .sell_info ul li .value {
+                color: white;
+                height: 25px;
+                line-height: 25px;
+                font-size: 1.4em;
+                font-weight: bold;
+                margin-top: 5px;
+            }
+
+.textarea_control {
+    font-size: .8em;
+    width: 100%;
+    padding: 10px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 80px;
+}
+
+.search_player .van-loading__circular circle {
+    stroke-width: 1;
+}
+
+.alert {
+    padding: 10px;
+    font-size: .8em;
+    color: #9a9a9a;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.red {
+    color: red;
+}

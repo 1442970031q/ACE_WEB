@@ -1,0 +1,15 @@
+﻿.van-loading {
+    width: 60px;
+    height: 60px;
+}
+
+    .van-loading .van-loading__circular circle {
+        stroke-width: 1;
+    }
+
+.van-popup--bottom {
+    width: calc(100% - 20px);
+    bottom: 35px;
+    border-radius: 10px;
+    overflow: hidden;
+}

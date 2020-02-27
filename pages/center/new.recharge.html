@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title></title>
+    <link href="../../content/css/vant.css" rel="stylesheet" />
+    <link href="../../content/css/base.css" rel="stylesheet" />
+    <link href="../../content/css/pages/center/new.recharge.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <div id="app">
+        <div class="bg"></div>
+        <div id="app-head" class="fixed" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+            <i id="app-back-button" class="iconfont iconzuo right-back"></i>
+            <div class="app-head-text" v-text="language.TITLE_TEXT"></div>
+        </div>
+        <div id="app-content" v-bind:style="{'paddingTop': (45 + statusbarHeight) + 'px'}">
+            <div class="input_group">
+                <div class="warn" v-text="language.WARNING_TEXT"></div>
+                <div class="input_line van-hairline--bottom">
+                    <span class="input_text" v-text="language.INPUT_TEXT_1">充值數量</span>
+                    <input class="input_control"
+                           type="number"
+                           v-model="form.amount"
+                           v-bind:placeholder="language.INPUT_PLACEHOLDER_1" />
+                </div>
+                <div class="input_line van-hairline--bottom">
+                    <span class="input_text" v-text="language.INPUT_TEXT_2">交易Hash</span>
+                    <input class="input_control r-1"
+                           v-model="form.hash"
+                           v-bind:placeholder="language.INPUT_PLACEHOLDER_2" />
+                    <i class="arrow iconfont iconcopy" @click="pasteHex"></i>
+                </div>
+                <div class="input_line van-hairline--bottom">
+                    <span class="input_text" v-text="language.INPUT_TEXT_3">上傳憑證</span>
+                    <div class="input_control r-1 gray" v-text="fileName ? fileName : language.INPUT_PLACEHOLDER_3"></div>
+                    <i class="arrow iconfont iconupload" @click="choiceImage"></i>
+                </div>
+            </div>
+            <button class="confirm_button" v-text="language.BUTTON_1" @click="checkData">確認提交</button>
+        </div>
+    </div>
+    <script src="../../content/js/vue.js"></script>
+    <script src="../../content/js/vant.min.js"></script>
+    <script src="../../content/js/base.js"></script>
+    <script src="../../content/js/pages/center/new.recharge.js"></script>
+</body>
+</html>

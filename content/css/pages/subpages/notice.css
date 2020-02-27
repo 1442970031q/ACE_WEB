@@ -1,0 +1,75 @@
+﻿html,
+body {
+    height: 100%;
+    background-color: #4c4c4c;
+}
+
+#app {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+    #app .caption {
+        text-align: center;
+        color: white;
+        height: 30px;
+        line-height: 30px;
+        font-size: 1em;
+    }
+
+    #app .bg {
+        width: 300px;
+        height: 400px;
+        position: relative;
+    }
+
+        #app .bg img {
+            position: absolute;
+            width: 300px;
+            height: 400px;
+            display: block;
+        }
+
+        #app .bg .context {
+            position: absolute;
+            width: 230px;
+            height: 350px;
+            top: 22px;
+            font-size: .9em;
+            left: 35px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            color: white;
+            line-height: 18px;
+        }
+
+            #app .bg .context .text {
+                margin: 5px 0;
+                text-indent: 2em;
+            }
+
+            #app .bg .context .text-right {
+                text-align: right;
+            }
+
+    #app .close {
+        position: absolute;
+        font-size: .9em;
+        height: 35px;
+        line-height: 33px;
+        color: rgba(255, 255, 255, 0.7);
+        width: 35px;
+        bottom: -45px;
+        margin: auto;
+        left: 0;
+        right: 0;
+        border: 1px solid rgba(255, 255, 255, 0.7);
+        box-sizing: border-box;
+        border-radius: 50%;
+        text-align: center;
+    }
+
+        #app .close:active {
+            color: #dcdbdb;
+        }

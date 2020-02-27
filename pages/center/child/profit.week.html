@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover" />
+    <title></title>
+    <link href="../../../content/css/base.css" rel="stylesheet" />
+    <link href="../../../content/css/vant.css" rel="stylesheet" />
+    <link href="../../../content/css/pages/center/child/profit.week.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <div id="app">
+        <div id="app-head" class="fixed van-hairline--bottom" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+            <i id="app-back-button" class="iconfont iconzuo right-back"></i>
+            <div class="app-head-text" v-text="typeof language.TITLE_TEXT !== 'undefined' ? language.TITLE_TEXT.replace('{0}', request.weekIndex) : ''">每周統計</div>
+        </div>
+        <div id="app-content" v-bind:style="{'paddingTop': (45 + statusbarHeight) + 'px'}">
+            <div v-if="pageModel.isLoading" class="loading-box p50">
+                <van-loading color="black"></van-loading>
+                <p class="loading-text" v-text="language.LOADING_TEXT"></p>
+            </div>
+            <div v-else v-cloak>
+                <div v-if="pageModel.list.length === 0" class="none-data p50">
+                    <i class="iconfont iconkong"></i>
+                    <p class="none-data-text" v-text="language.NONE_DATA_TEXT">暫無數據</p>
+                </div>
+                <div v-else>
+                    <ul class="list">
+                        <li v-for="(item,index) in pageModel.list"
+                            v-bind:key="index">
+                            <p class="line clearfix">
+                                <span class="text" v-text="item.TypeName"></span>
+                                <span class="value" v-text="'+' + numberFormat(item.EPAmount, 2)"></span>
+                            </p>
+                            <p class="line">
+                                <span class="value time" v-text="item.Time"></span>
+                            </p>
+                        </li>
+                    </ul>
+                    <div v-if="pageModel.isLoadMore" class="load_more clearfix">
+                        <van-loading color="black"></van-loading>
+                        <span class="load_text" v-text="language.LOADING_TEXT">正在加載...</span>
+                    </div>
+                    <div v-if="pageModel.isLoadComplete" class="load_more_complete">
+                        <span class="load_text" v-text="language.LOAD_COMPLETE_TEXT">沒有更多的數據了...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../../content/js/vue.js"></script>
+    <script src="../../../content/js/vant.min.js"></script>
+    <script src="../../../content/js/base.js"></script>
+    <script src="../../../content/js/pages/center/child/profit.week.js"></script>
+</body>
+</html>

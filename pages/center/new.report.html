@@ -1,0 +1,234 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover" />
+    <title></title>
+    <link href="../../content/css/base.css" rel="stylesheet" />
+    <link href="../../content/css/vant.css" rel="stylesheet" />
+    <link href="../../content/css/pages/center/new.report.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <div id="app">
+        <div id="app-head" class="fixed van-hairline--bottom shadow" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+            <i id="app-back-button" class="iconfont iconzuo right-back"></i>
+            <div class="app-head-text" v-text="language.TITLE_TEXT">新玩家注冊</div>
+        </div>
+        <div id="app-content"
+             v-bind:style="{'paddingTop': (45 + statusbarHeight) + 'px'}"
+             v-bind:class="{'safe': APP.CONFIG.IsSafeArea()}">
+            <div v-if="isLoading || isLoadFirstReport" class="loading-box p50">
+                <van-loading color="black"></van-loading>
+                <p class="loading-text" v-text="language.LOADING_TEXT"></p>
+            </div>
+            <div v-else v-cloak>
+                <div class="input_group">
+                    <div class="input_line van-hairline--bottom">
+                        <span class="input_text" v-text="language.INPUT_TEXT_1">玩家登錄名</span>
+                        <input type="text" 
+                               class="input_control" 
+                               v-model="form.memberNo" 
+                               v-bind:placeholder="language.INPUT_PLACEHOLDER_1" 
+                               maxlength="15" />
+                    </div>
+                    <div class="input_line van-hairline--bottom">
+                        <span class="input_text" v-text="language.INPUT_TEXT_2">玩家昵稱</span>
+                        <input type="text" 
+                               class="input_control" 
+                               v-model="form.nickName" 
+                               v-bind:placeholder="language.INPUT_PLACEHOLDER_2" 
+                               maxlength="15" />
+                    </div>
+                    <div class="input_line">
+                        <span class="input_text" v-text="language.INPUT_TEXT_3">玩家星級</span>
+                        <div class="input_control r-1"
+                             v-bind:class="{'gray': !form.investmentAmount}"
+                             @click="isShowMoney = true"
+                             v-html="!form.investmentAmount ? language.INPUT_PLACEHOLDER_3 : display.levelText"></div>
+                        <i class="iconfont iconjiantou arrow"></i>
+                    </div>
+                </div>
+                <div class="input_group">
+                    <div class="warn">
+                        <p class="title" v-text="language.RULES_TITLE">設置新玩家登錄密碼</p>
+                        <ul class="rules">
+                            <li v-text="language.RULES_ITEM_1">登錄密碼最少6位</li>
+                            <li v-text="language.RULES_ITEM_2">必須包含大寫字母、小寫字母和數字</li>
+                            <li v-text="language.RULES_ITEM_3" class="main">新玩家初始交易密碼為：123456</li>
+                        </ul>
+                    </div>
+                    <div class="input_line">
+                        <span class="input_text" v-text="language.INPUT_TEXT_4">登錄密碼</span>
+                        <input type="password" 
+                               class="input_control" 
+                               v-model="form.password1" 
+                               v-bind:placeholder="language.INPUT_PLACEHOLDER_4" 
+                               maxlength="16" />
+                    </div>
+                </div>
+                <div class="input_group">
+                    <div class="warn_container">
+                        <p class="warn_text">
+                            <i class="iconfont iconjinggao"></i>
+                            <span v-text="language.WARN_TEXT">真實姓名必須和證件、銀行卡一致，正確的證件信息非常重要，註冊后不可更改！</span>
+                        </p>
+                    </div>
+                    <div class="input_line van-hairline--bottom">
+                        <span class="input_text" v-text="language.INPUT_TEXT_5">真實姓名</span>
+                        <input type="text" 
+                               class="input_control" 
+                               v-model="form.realName" 
+                               v-bind:placeholder="language.INPUT_PLACEHOLDER_5" 
+                               maxlength="15" />
+                    </div>
+                    <div class="input_line van-hairline--bottom">
+                        <span class="input_text" v-text="language.INPUT_TEXT_6">國籍</span>
+                        <div class="input_control r-1" 
+                             v-bind:class="{'gray': !form.nationality}" 
+                             @click="isCountryShow = true" 
+                             v-text="!form.nationality ? language.INPUT_PLACEHOLDER_6 : display.countryText"></div>
+                        <i class="iconfont iconjiantou arrow"></i>
+                    </div>
+                    <div class="input_line van-hairline--bottom">
+                        <span class="input_text" v-text="language.INPUT_TEXT_7">證件類型</span>
+                        <div class="input_control r-1" 
+                             @click="changeIdType" 
+                             v-bind:class="{'gray': !form.idType}" 
+                             v-text="!form.idType ? language.INPUT_PLACEHOLDER_7 : display.idTypeText"></div>
+                        <i class="iconfont iconjiantou arrow"></i>
+                    </div>
+                    <div class="input_line">
+                        <span class="input_text" v-text="language.INPUT_TEXT_8">證件號碼</span>
+                        <input type="text" 
+                               class="input_control" 
+                               v-model="form.idNumber" 
+                               v-bind:placeholder="language.INPUT_PLACEHOLDER_8" 
+                               maxlength="25" />
+                    </div>
+                </div>
+                <div class="input_group">
+                    <div class="warn_container" v-show="isFirstReport">
+                        <p class="warn_title">
+                            <i class="iconfont iconjinggao"></i>
+                            <span v-text="language.FIRST_REPORT">首次報單</span>
+                        </p>
+                        <p class="warn_text" v-text="language.FIRST_TEXT">直接推薦的首單必須放在左區最下面的位置</p>
+                    </div>
+                    <div class="input_line van-hairline--bottom">
+                        <span class="input_text" v-text="language.INPUT_TEXT_9">接點人ID</span>
+                        <input type="tel" 
+                               class="input_control" 
+                               v-bind:readonly="isFirstReport" 
+                               @blur="!isFirstReport && doSearchFlowNumber()" 
+                               v-model="searchFlowNumber" 
+                               v-bind:placeholder="language.INPUT_PLACEHOLDER_9" 
+                               maxlength="6" />
+                    </div>
+                    <div class="input_line van-hairline--bottom">
+                        <span class="input_text" v-text="language.INPUT_TEXT_10">接點人昵稱</span>
+                        <div class="input_control">
+                            <van-loading v-if="isPlayerLoading" color="black" class="small_loading"></van-loading>
+                            <span v-else v-bind:class="{'red': isNotFound}" v-text="display.nodalPersonText"></span>
+                        </div>
+                    </div>
+                    <div class="input_line" v-show="!isFirstReport">
+                        <span class="input_text" v-text="language.INPUT_TEXT_11">位置選擇</span>
+                        <div class="input_control">
+                            <div class="pos">
+                                <div class="block" v-bind:class="{'checked': form.position === 1}" @click="form.position = 1">
+                                    <i v-show="form.position === 1" class="iconfont iconiconselected"></i>
+                                    <span v-text="language.POS_LEFT">左區</span>
+                                </div>
+                                <div class="block" v-bind:class="{'checked': form.position === 2}" @click="form.position = 2">
+                                    <i v-show="form.position === 2" class="iconfont iconiconselected"></i>
+                                    <span v-text="language.POS_RIGHT">右區</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="input_group">
+                    <div class="input_line">
+                        <span class="input_text" v-text="language.INPUT_TEXT_12">交易密碼</span>
+                        <input type="text" 
+                               class="input_control" 
+                               v-model="form.mPassword"
+                               v-bind:placeholder="language.INPUT_PLACEHOLDER_12" 
+                               maxlength="15" />
+                    </div>
+                </div>
+                <button class="confirm_button" @click="checkData" v-text="language.BUTTON_1">確認提交</button>
+                <van-popup class="levels" v-model="isIdTypeShow" position="bottom">
+                    <van-picker v-bind:columns="idTypes"
+                                show-toolbar="true"
+                                v-bind:title="language.COUNTRY_PICKER_TITLE"
+                                v-bind:confirm-button-text="language.CONFIRM_BUTTON_1"
+                                v-bind:cancel-button-text="language.CONFIRM_BUTTON_2"
+                                @confirm="confirmIdType"
+                                @cancel="isIdTypeShow = false"></van-picker>
+                </van-popup>
+                <van-popup class="levels" v-model="isCountryShow" position="bottom">
+                    <van-picker v-bind:columns="country"
+                                show-toolbar="true"
+                                v-bind:title="language.COUNTRY_PICKER_TITLE"
+                                v-bind:confirm-button-text="language.CONFIRM_BUTTON_1"
+                                v-bind:cancel-button-text="language.CONFIRM_BUTTON_2"
+                                @confirm="confirmCountry"
+                                @cancel="isCountryShow = false"></van-picker>
+                </van-popup>
+                <van-popup class="levels" v-model="isShowMoney" position="bottom">
+                    <van-picker v-bind:columns="levelList"
+                                show-toolbar="true"
+                                v-bind:title="language.LEVEL_PICKER_TITLE"
+                                v-bind:confirm-button-text="language.CONFIRM_BUTTON_1"
+                                v-bind:cancel-button-text="language.CONFIRM_BUTTON_2"
+                                @confirm="confirmMoney"
+                                @cancel="isShowMoney = false"></van-picker>
+                </van-popup>
+                <van-popup class="confirm_report"
+                           v-model="isConfirmPopup"
+                           position="bottom">
+                    <p class="title" v-text="language.CONFIRM_POPUP_TITLE">報單確認</p>
+                    <ul class="report_list">
+                        <li>
+                            <span class="text" v-text="language.INPUT_TEXT_1">登錄名</span>
+                            <span class="value" v-text="form.memberNo"></span>
+                        </li>
+                        <li>
+                            <span class="text" v-text="language.INPUT_TEXT_2">玩家昵稱</span>
+                            <span class="value" v-html="form.nickName"></span>
+                        </li>
+                        <li>
+                            <span class="text" v-text="language.INPUT_TEXT_3">玩家星級</span>
+                            <span class="value" v-html="display.levelText"></span>
+                        </li>
+                        <li>
+                            <span class="text" v-text="language.INPUT_TEXT_5">真實姓名</span>
+                            <span class="value" v-text="form.realName"></span>
+                        </li>
+                        <li>
+                            <span class="text" v-text="language.INPUT_TEXT_8">證件號碼</span>
+                            <span class="value" v-html="form.idNumber"></span>
+                        </li>
+                        <li>
+                            <span class="text" v-text="language.INPUT_TEXT_10">接點人</span>
+                            <span class="value" v-text="display.nodalPersonText"></span>
+                        </li>
+                        <li>
+                            <span class="text" v-text="language.INPUT_TEXT_11">接點位置</span>
+                            <span class="value" v-text="form.position === 1 ? language.POS_LEFT : language.POS_RIGHT"></span>
+                        </li>
+                    </ul>
+                    <button class="confirm_button full" v-text="language.BUTTON_1" @click="doSubmitAjax">確認報單</button>
+                </van-popup>
+            </div>
+        </div>
+    </div>
+    <script src="../../content/js/vue.js"></script>
+    <script src="../../content/js/vant.min.js"></script>
+    <script src="../../content/js/base.js"></script>
+    <script src="../../content/js/country.js"></script>
+    <script src="../../content/js/pages/center/new.report.js"></script>
+</body>
+</html>

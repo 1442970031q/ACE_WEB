@@ -1,0 +1,203 @@
+﻿.van-tab {
+    background-color: #f9f9f9;
+}
+
+.van-tab--active {
+    color: #068dfe;
+    font-weight: bold;
+    background-color: white;
+}
+
+.van-tabs__line {
+    background-color: #068dfe;
+}
+
+.van-tabs--line .van-tabs__wrap.van-hairline--top-bottom::after {
+    border: 0 !important;
+}
+
+#app-head {
+    background-color: #068dfe;
+    color: white;
+}
+
+    #app-head .submit-button {
+        font-size: 1.2em;
+    }
+
+#app-content {
+    padding-bottom: 10px;
+}
+
+    #app-content.iphone {
+        padding-bottom: 30px;
+    }
+
+.sell_info {
+    background-color: white;
+    margin: 0 auto;
+    padding: 10px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: #068dfe;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+    .sell_info ul {
+        display: flex;
+    }
+
+        .sell_info ul li {
+            width: 33.33333%;
+            text-align: center;
+        }
+
+            .sell_info ul li .text {
+                font-size: .8em;
+                height: 20px;
+                line-height: 20px;
+                margin-top: 5px;
+                color: white;
+            }
+
+            .sell_info ul li .value {
+                color: white;
+                line-height: 20px;
+                font-size: 1.2em;
+            }
+
+.border {
+    width: calc(100% - 20px);
+    border-radius: 8px;
+    bottom: 35px;
+}
+
+.confirm_dialog {
+    background-color: white;
+}
+
+    .confirm_dialog .confirm_dialog_inner {
+        font-size: .9em;
+    }
+
+        .confirm_dialog .confirm_dialog_inner .caption {
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1em;
+            padding: 15px 0;
+        }
+
+        .confirm_dialog .confirm_dialog_inner ul {
+            padding: 15px;
+        }
+
+            .confirm_dialog .confirm_dialog_inner ul li {
+                line-height: 25px;
+            }
+
+                .confirm_dialog .confirm_dialog_inner ul li .text {
+                    font-weight: bold;
+                }
+
+                .confirm_dialog .confirm_dialog_inner ul li .text,
+                .confirm_dialog .confirm_dialog_inner ul li .value {
+                    display: inline-block;
+                    width: 95px;
+                    text-align: left;
+                    color: #5c6875;
+                    float: left;
+                }
+
+                .confirm_dialog .confirm_dialog_inner ul li .value {
+                    text-align: right;
+                    width: inherit;
+                    word-break: break-all;
+                    width: calc(100% - 100px);
+                    margin-left: 5px;
+                }
+
+        .confirm_dialog .confirm_dialog_inner .buttons {
+            display: flex;
+            width: 100%;
+        }
+
+            .confirm_dialog .confirm_dialog_inner .buttons .button {
+                width: 50%;
+                text-align: center;
+                height: 50px;
+                line-height: 50px;
+                background-color: #068dfe;
+                color: white;
+            }
+
+                .confirm_dialog .confirm_dialog_inner .buttons .button:active {
+                    background-color: #047adc;
+                }
+
+                .confirm_dialog .confirm_dialog_inner .buttons .button.cancel {
+                    background-color: #f1f1f1;
+                    color: #848484;
+                }
+
+                    .confirm_dialog .confirm_dialog_inner .buttons .button.cancel:active {
+                        background-color: #eae6e6;
+                    }
+
+.tip_box {
+    padding: 15px;
+    padding-bottom: 65px;
+    overflow: hidden;
+    border-radius: 8px;
+    box-sizing: border-box;
+    width: calc(100% - 30px);
+    bottom: 35px;
+}
+
+    .tip_box .tip_title {
+        margin-bottom: 10px;
+    }
+
+        .tip_box .tip_title,
+        .tip_box .tip_title .iconfont {
+            font-size: 1em;
+        }
+
+    .tip_box .tip {
+        background-color: white;
+    }
+
+        .tip_box .tip .title {
+            font-size: .9em;
+            font-weight: bold;
+        }
+
+        .tip_box .tip ul {
+            padding-left: 20px;
+            list-style: disc;
+        }
+
+            .tip_box .tip ul li {
+                font-size: .8em;
+                color: #5c6875;
+                margin-bottom: 5px;
+            }
+
+                .tip_box .tip ul li:last-child {
+                    margin-bottom: 0;
+                }
+
+.warn {
+    padding: 10px 15px;
+    background-color: #ffd400;
+}
+
+    .warn .caption {
+        font-weight: bold;
+    }
+
+    .warn .text {
+        font-size: .9em;
+        color: #655400;
+    }

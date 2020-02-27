@@ -1,0 +1,158 @@
+﻿.none-data.p50 {
+    padding: 60% 0;
+}
+
+.van-pull-refresh {
+    overflow: inherit;
+}
+
+.bg {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: white;
+    z-index: 1;
+}
+
+.van-tabs {
+    position: absolute;
+    width: 100%;
+    padding-bottom: 65px;
+}
+
+.van-tabs__wrap {
+    top: inherit;
+    position: fixed;
+}
+
+.van-hairline--top-bottom::after {
+    border-top-width: 0;
+}
+
+.van-tab {
+    color: #444444;
+}
+
+.van-tab--active {
+    color: #068dfe;
+}
+
+.van-tabs__line {
+    background-color: #068dfe;
+}
+
+#app-head .right-back {
+    font-size: .9em;
+    width: initial;
+    padding: 0 10px;
+}
+
+#app-head .submit-button {
+    font-size: .9em;
+    font-weight: normal;
+}
+
+.list {
+    width: calc(100% - 20px);
+    margin: 0 auto;
+}
+
+    .list > li {
+        margin: 10px 0;
+        background-color: white;
+        border-radius: 4px;
+        padding: 10px;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        box-shadow: 0px 0px 10px #f1f1f1;
+    }
+
+        .list > li:active {
+            background-color: #f9f9f9;
+        }
+
+        .list > li .top {
+            height: 30px;
+        }
+
+            .list > li .top .image {
+                width: 28px;
+                height: 28px;
+                display: block;
+                border-radius: 50%;
+                float: left;
+                border: 1px solid #efefef;
+            }
+
+            .list > li .top .fn {
+                float: left;
+                width: calc(100% - 100px);
+                height: 30px;
+                margin-left: 10px;
+                line-height: 30px;
+                color: #068dfe;
+            }
+
+            .list > li .top .state {
+                float: left;
+                width: 60px;
+                line-height: 30px;
+                text-align: center;
+            }
+
+                .list > li .top .state span {
+                    font-size: .8em;
+                    color: #7d7e80;
+                }
+
+        .list > li .info {
+            display: flex;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+            .list > li .info li {
+                width: 50%;
+                text-align: center;
+            }
+
+                .list > li .info li p.value {
+                    font-size: 1.3em;
+                    height: 25px;
+                    line-height: 25px;
+                    color: #5c6875;
+                }
+
+                .list > li .info li p.text {
+                    font-size: .7em;
+                    height: 20px;
+                    line-height: 20px;
+                    color: #068dfe;
+                }
+
+        .list > li .bottom {
+            margin-top: 15px;
+        }
+
+            .list > li .bottom .support_pay {
+                float: left;
+                height: 25px;
+                display: flex;
+            }
+
+                .list > li .bottom .support_pay .pay_icon {
+                    display: block;
+                    width: 20px;
+                    height: 20px;
+                    margin-top: 2.5px;
+                }
+
+            .list > li .bottom .time {
+                text-align: right;
+                height: 25px;
+                line-height: 25px;
+                font-size: .8em;
+                color: #8e8e8e;
+                float: right;
+            }

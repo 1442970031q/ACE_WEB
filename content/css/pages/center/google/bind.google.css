@@ -1,0 +1,39 @@
+﻿.input_group_1 {
+    width: calc(100% - 20px);
+    margin: 30px auto;
+    border-radius: 6px;
+    overflow: hidden;
+    color: #b38e00;
+    background: #ffe790;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+    .input_group_1 .title {
+        font-size: 1em;
+        text-align: left;
+        padding: 5px 0;
+    }
+
+    .input_group_1 .content .line_text {
+        font-size: 0.8em;
+        margin-top: 5px;
+    }
+
+.input_group .input_line .input_control {
+    overflow-x: auto;
+}
+
+.input_group .tip {
+    padding: 10px;
+    background-color: #f7f7f7;
+    font-size: .8em;
+    color: #bbbbbb;
+}
+
+.input_group .warn {
+    padding: 10px;
+    background-color: #ffe790;
+    font-size: .8em;
+    color: #b38e00;
+}

@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title></title>
+    <link href="../../content/css/vant.css" rel="stylesheet" />
+    <link href="../../content/css/base.css" rel="stylesheet" />
+    <link href="../../content/css/pages/subpages/validate.identity.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <div id="app">
+        <div id="app-head" class="head" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+            <div class="app-head-text" v-text="language.TITLE_TEXT"></div>
+            <button class="submit-button" v-text="language.BUTTON_2" @click="gotoLogin">返回登錄</button>
+        </div>
+        <div id="app-content">
+            <div class="warn" v-text="language.DES_TEXT"></div>
+            <div class="input_group mt-10">
+                <div class="input_line">
+                    <span class="input_text" v-text="language.INPUT_TEXT_1"></span>
+                    <input type="text"
+                           class="input_control"
+                           v-model="form.idCardNumber"
+                           maxlength="20"
+                           v-bind:placeholder="language.INPUT_PLACEHOLDER_1" />
+                </div>
+            </div>
+            <button class="confirm_button" @click="checkData" v-text="language.BUTTON_1"></button>
+        </div>
+    </div>
+    <script src="../../content/js/vue.js"></script>
+    <script src="../../content/js/vant.min.js"></script>
+    <script src="../../content/js/base.js"></script>
+    <script src="../../content/js/pages/subpages/validate.identity.js"></script>
+</body>
+</html>

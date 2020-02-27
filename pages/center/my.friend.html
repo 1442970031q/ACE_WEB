@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover" />
+    <title></title>
+    <link href="../../content/css/base.css" rel="stylesheet" />
+    <link href="../../content/css/vant.css" rel="stylesheet" />
+    <link href="../../content/css/pages/center/my.friend.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="app">
+        <div id="app-head" class="fixed van-hairline--bottom" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+            <i id="app-back-button" class="iconfont iconzuo right-back"></i>
+            <i v-if="teamList.length !== 0" class="iconfont iconiconset0432 right-back_action" @click="gotoBack"></i>
+            <div class="app-head-text" v-text="language.TITLE_TEXT">我的好友</div>
+        </div>
+        <div id="app-content" v-bind:style="{'paddingTop': (45 + statusbarHeight) + 'px'}">
+            <div class="top_content">
+                <form action="/">
+                    <van-search v-bind:placeholder="language.SEARCH_PLACEHOLDER"
+                                v-model="searchKey"
+                                @search="doSearchAjax"
+                                maxlength="10">
+                        <i slot="left-icon" class="iconfont iconsousuo"></i>
+                    </van-search>
+                </form>
+                <div class="first_row clearfix">
+                    <div class="left">
+                        <img v-lazy="currentUser.AvatarImage" class="avatar" />
+                        <span class="number">0</span>
+                    </div>
+                    <div class="right">
+                        <p class="fn">
+                            <span class="text" v-text="currentTopUser.NickName + '(' + currentTopUser.FlowNumber + ')'"></span>
+                            <i class="iconfont iconxing" v-for="(s, sIndex) in currentTopUser.Level"></i>
+                        </p>
+                        <p class="line">
+                            <span>F</span>
+                            <span v-text="currentTopUser.F" class="underline"></span>
+                            <b>/</b>
+                            <span>S</span>
+                            <span v-text="currentTopUser.S" class="underline"></span>
+                        </p>
+                        <p class="line">
+                            <span>L</span>
+                            <span class="underline" v-text="numberFormat(currentTopUser.L, 0)"></span>
+                            <b>/</b>
+                            <span>R</span>
+                            <span class="underline" v-text="numberFormat(currentTopUser.R, 0)"></span>
+                        </p>
+                        <p class="time" v-text="currentTopUser.CreateTime"></p>
+                    </div>
+                </div>
+            </div>
+            <div v-if="isLoading" class="loading-box">
+                <van-loading color="black"></van-loading>
+                <p class="loading-text" v-text="language.LOADING_TEXT"></p>
+            </div>
+            <div v-else v-cloak class="list_content" v-bind:style="{'top': '161px'}">
+                <div v-if="pageModel.list.length === 0" class="none-data p50">
+                    <i class="iconfont iconwu"></i>
+                    <p class="none-data-text" v-text="language.NONE_DATA_TEXT">暫無好友信息</p>
+                </div>
+                <div v-else>
+                    <ul>
+                        <li class="clearfix"
+                            v-for="(item,index) in pageModel.list"
+                            v-bind:key="index"
+                            @click="choiceUser(item)">
+                            <div class="left">
+                                <img v-lazy="item.Avatar" class="avatar" />
+                                <span class="number" v-text="index + 1"></span>
+                            </div>
+                            <div class="right">
+                                <p class="fn">
+                                    <span class="text" v-text="item.NickName + '(' + item.FlowNumber + ')'"></span>
+                                    <i class="iconfont iconxing" v-for="(s, sIndex) in item.Level"></i>
+                                </p>
+                                <p class="line">
+                                    <span>F</span>
+                                    <span v-text="item.F" class="underline"></span>
+                                    <b>/</b>
+                                    <span>S</span>
+                                    <span v-text="item.S" class="underline"></span>
+                                </p>
+                                <p class="line">
+                                    <span>L</span>
+                                    <span class="underline" v-text="numberFormat(item.L, 0)"></span>
+                                    <b>/</b>
+                                    <span>R</span>
+                                    <span class="underline" v-text="numberFormat(item.R, 0)"></span>
+                                </p>
+                                <p class="time" v-text="item.CreateTime"></p>
+                            </div>
+                        </li>
+                    </ul>
+                    <div v-if="pageModel.isLoadMore" class="load_more clearfix">
+                        <van-loading color="black"></van-loading>
+                        <span class="load_text" v-text="language.LOADING_TEXT">正在加載...</span>
+                    </div>
+                    <div v-if="pageModel.isLoadComplete" class="load_more_complete">
+                        <span class="load_text" v-text="language.LOAD_COMPLETE_TEXT">沒有更多的數據了...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../content/js/vue.js"></script>
+    <script src="../../content/js/vant.min.js"></script>
+    <script src="../../content/js/base.js"></script>
+    <script src="../../content/js/pages/center/my.friend.js"></script>
+</body>
+</html>

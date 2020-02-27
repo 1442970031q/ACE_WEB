@@ -1,0 +1,90 @@
+﻿.top_content {
+    background-color: white;
+    padding: 10px;
+    box-sizing: border-box;
+    width: calc(100% - 20px);
+    margin: 0 auto;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+    .top_content .title {
+        font-size: 1em;
+        margin: 0 10px;
+        padding: 5px 0;
+        font-weight: bold;
+    }
+
+    .top_content .sell {
+        text-align: center;
+        margin: 15px 0;
+    }
+
+        .top_content .sell .number {
+            font-size: 1.6em;
+            font-weight: bold;
+        }
+
+        .top_content .sell .s {
+            font-size: .7em;
+        }
+
+        .top_content .sell .text {
+            text-align: center;
+            font-size: .7em;
+            color: #a5a5a5;
+        }
+
+    .top_content .time {
+        text-align: right;
+        font-size: .8em;
+        color: #a5a5a5;
+    }
+
+.buyer_content {
+    background-color: white;
+    padding: 10px 0;
+    width: calc(100% - 20px);
+    margin: 0 auto;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+    .buyer_content .title {
+        font-size: 1em;
+        margin: 0 15px;
+        padding: 5px 0;
+        font-weight: bold;
+    }
+
+    .buyer_content .tab {
+        width: 100%;
+        margin-top: 10px;
+        text-align: center;
+    }
+
+        .buyer_content .tab thead {
+            font-size: .8em;
+        }
+
+            .buyer_content .tab thead tr td {
+                padding: 10px 0;
+                background-color: #f9f9f9;
+            }
+
+        .buyer_content .tab tbody {
+            font-size: .75em;
+        }
+
+            .buyer_content .tab tbody tr td {
+                padding: 10px 0;
+                color: #8a8a8a;
+            }
+
+.none-data {
+    margin: 15px 0;
+}
+
+    .none-data .iconfont {
+        font-size: 2em;
+    }

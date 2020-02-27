@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover" />
+    <title></title>
+    <link href="../content/css/base.css" rel="stylesheet" />
+    <link href="../content/css/vant.css" rel="stylesheet" />
+    <link href="../content/css/pages/home.css" rel="stylesheet" />
+    <link href="../content/css/bottom.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="app">
+        <div id="app-head" class="fixed shadow" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+            <!--<button class="right-back" @click="APP.GLOBAL.gotoNewWindow('languagesPage', 'subpages/languages')">語言切換</button>-->
+            <div class="app-head-text" v-text="language.TITLE_TEXT">ACE王牌</div>
+            <i class="iconfont icongonggao1 submit-button" @click="APP.GLOBAL.gotoNewWindow('notice.listPage', 'subpages/notice.list')"></i>
+        </div>
+        <div id="app-content" v-bind:style="{'paddingTop': (45 + statusbarHeight) + 'px'}">
+            <div v-if="isLoading" class="loading-box p50">
+                <van-loading color="black"></van-loading>
+                <p class="loading-text" v-text="language.LOADING_TEXT"></p>
+            </div>
+            <van-pull-refresh v-model="isReloading"
+                              @refresh="onRefresh"
+                              v-else
+                              v-cloak
+                              v-bind:pulling-text="language.PULLING_TEXT"
+                              v-bind:loosing-text="language.LOOSING_TEXT"
+                              v-bind:loading-text="language.LOADING_TEXT"
+                              v-bind:success-text="language.SUCCESS_TEXT">
+                <div slot="loading" class="pull_refresh">
+                    <img src="../content/img/reloading.svg" class="pull_refresh_img" />
+                    <span class="pull_refresh_text" v-text="language.LOADING_TEXT"></span>
+                </div>
+                <div class="block notice">
+                    <div class="block_content">
+                        <p class="middle" @click="gotoNotice">
+                            <i class="iconfont icongonggao"></i>
+                            <span v-text="language.NOTICE_TITLE + pageModel.lastNotice.Title"></span>
+                        </p>
+                    </div>
+                </div>
+                <div class="block bg">
+                    <p class="block_title">
+                        <i class="iconfont iconbanknote"></i>
+                        <span v-text="language.BLOCK_TITLE_1">我的資產</span>
+                    </p>
+                    <div class="block_content">
+                        <ul class="assets">
+                            <li>
+                                <p class="value">
+                                    <span v-text="numberFormat(currentUser.ACECount, 0)"></span>
+                                    <sup v-text="language.BLOCK_1_TEXT_1">張</sup>
+                                </p>
+                                <p class="text" v-text="language.BLOCK_1_TEXT_2">ACE王牌</p>
+                            </li>
+                            <li>
+                                <p class="value">
+                                    <span v-text="numberFormat(currentUser.TotalACE + currentUser.ACECount, 0)"></span>
+                                    <sup v-text="language.BLOCK_1_TEXT_1">張</sup>
+                                </p>
+                                <p class="text" v-text="language.BLOCK_1_TEXT_3">ACE王牌(主+子)</p>
+                            </li>
+                            <li>
+                                <p class="value">
+                                    <span v-text="numberFormat(currentUser.RP, 2)"></span>
+                                    <sup>＄</sup>
+                                </p>
+                                <p class="text" v-text="language.BLOCK_1_TEXT_4">RP注冊分</p>
+                            </li>
+                            <li>
+                                <p class="value">
+                                    <span v-text="numberFormat(currentUser.EP, 2)"></span>
+                                    <sup>＄</sup>
+                                </p>
+                                <p class="text" v-text="language.BLOCK_1_TEXT_5">EP現金分</p>
+                            </li>
+                            <li>
+                                <p class="value">
+                                    <span v-text="numberFormat(currentUser.SP, 2)"></span>
+                                    <sup>＄</sup>
+                                </p>
+                                <p class="text" v-text="language.BLOCK_1_TEXT_6">SP複投分</p>
+                            </li>
+                            <li>
+                                <p class="value">
+                                    <span v-text="numberFormat(currentUser.AP, 2)"></span>
+                                    <sup>＄</sup>
+                                </p>
+                                <p class="text" v-text="language.BLOCK_1_TEXT_7">AP排隊分</p>
+                            </li>
+                            <li>
+                                <p class="value">
+                                    <span v-text="numberFormat(currentUser.WeeklyMoney, 2)"></span>
+                                    <sup>＄</sup>
+                                </p>
+                                <p class="text" v-text="language.BLOCK_1_TEXT_8">本周收益</p>
+                            </li>
+                            <li>
+                                <p class="value">
+                                    <span v-text="numberFormat(pageModel.profitData.TotalProfit, 2)">100,000.00</span>
+                                    <sup>＄</sup>
+                                </p>
+                                <p class="text" v-text="language.BLOCK_1_TEXT_9">纍計獎勵</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="block">
+                    <p class="block_title">
+                        <i class="iconfont icontubiao"></i>
+                        <span v-text="language.BLOCK_TITLE_2">王牌價值</span>
+                    </p>
+                    <div class="block_content">
+                        <div class="top_context">
+                            <span class="number color_red" v-text="pageModel.profitData.Percent"></span>
+                            <span class="color_red">%</span>
+                            <p class="text" v-text="language.BLOCK_2_TEXT_1">收益率</p>
+                        </div>
+                        <ul class="profit">
+                            <li>
+                                <p class="value">
+                                    <span v-text="joinCapital"></span>
+                                    <sup>＄</sup>
+                                </p>
+                                <p class="text" v-text="language.BLOCK_2_TEXT_2">初始成本</p>
+                            </li>
+                            <li>
+                                <p class="value">
+                                    <span v-text="pageModel.profitData.CurrentACEPrice"></span>
+                                    <sup>＄</sup>
+                                </p>
+                                <p class="text" v-text="language.BLOCK_2_TEXT_3">當前價值</p>
+                            </li>
+                            <li>
+                                <p class="value">
+                                    <span v-text="numberFormat(pageModel.profitData.TotalSelledAce, 3)"></span>
+                                    <sup>＄</sup>
+                                </p>
+                                <p class="text" v-text="language.BLOCK_2_TEXT_4">纍計出售</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="block">
+                    <p class="block_title">
+                        <i class="iconfont iconjiaoyi1"></i>
+                        <span v-text="language.BLOCK_TITLE_3">挂賣 / 購買</span>
+                    </p>
+                    <div class="block_content">
+                        <ul class="sell">
+                            <li @click="gotoQueue">
+                                <p class="value">
+                                    <span v-text="numberFormat(pageModel.realData.TotalBuyMoney, 2)"></span>
+                                    <sup>＄</sup>
+                                </p>
+                                <p class="text" v-text="language.BLOCK_3_TEXT_1">購買</p>
+                            </li>
+                            <li>
+                                <p class="value">
+                                    <span>0</span>
+                                    <sup>＄</sup>
+                                </p>
+                                <p class="text" v-text="language.BLOCK_3_TEXT_2">挂賣</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="block highChart">
+                    <p class="block_title">
+                        <i class="iconfont icontubiao1"></i>
+                        <span v-text="language.BLOCK_TITLE_4">價格走勢</span>
+                    </p>
+                    <div class="block_content">
+                        <p class="price">
+                            <span v-text="numberFormat(pageModel.currentStockPrice, 3)"></span>
+                            <sup>＄</sup>
+                        </p>
+                        <p class="time" v-text="language.BLOCK_4_TEXT_1 + updateTime"></p>
+                        <div v-if="isLoadChart" class="loading-box pd-10">
+                            <van-loading color="black"></van-loading>
+                            <p class="loading-text" v-text="language.LOADING_TEXT"></p>
+                        </div>
+                        <div v-else id="container" style="width:100%; height:300px"></div>
+                    </div>
+                </div>
+            </van-pull-refresh>
+        </div>
+        <div id="bottom" class="panel pos van-hairline--top">
+            <ul id="bottom-menus-items" class="menus clearfix">
+                <li v-for="(item, index) in menus"
+                    v-bind:key="index"
+                    v-bind:class="{'active': currentIndex === item.index}"
+                    @click="window.location = item.url">
+                    <i class="iconfont icon" v-bind:class="[currentIndex === item.index ? item.active : item.default]"></i>
+                    <p class="menus-text" v-text="item.text"></p>
+                </li>
+            </ul>
+        </div>
+        <van-popup class="notice_frame"
+                   v-model="isNoticeShow"
+                   v-cloak
+                   v-bind:close-on-click-overlay="false">
+            <iframe src="subpages/notice.html"></iframe>
+        </van-popup>
+    </div>
+    <script src="../content/js/vue.js"></script>
+    <script src="../content/js/vant.min.js"></script>
+    <script src="../content/js/base.js"></script>
+    <script src="../content/js/highcharts.js"></script>
+    <script src="../content/js/pages/home.js"></script>
+</body>
+</html>

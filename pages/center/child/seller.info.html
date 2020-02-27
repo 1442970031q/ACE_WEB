@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover" />
+    <title></title>
+    <link href="../../../content/css/base.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.0/lib/index.css">
+    <link href="../../../content/css/pages/center/child/seller.info.css" rel="stylesheet" />
+
+    
+</head>
+<body>
+    <div id="app">
+        <div id="app-head" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+            <i id="app-back-button" class="iconfont iconzuo right-back"></i>
+            <div class="app-head-text" v-text="language.TITLE_TEXT"></div>
+        </div>
+        <div id="app-content">
+            <div v-if="isLoading" class="loading-box p50">
+                <van-loading color="black"></van-loading>
+                <p class="loading-text" v-text="language.LOADING_TEXT"></p>
+            </div>
+            <div class="panel" v-else v-cloak>
+                <div class="seller">
+                    <div class="avatar_box clearfix">
+                        <img v-lazy="pageModel.Seller.Avatar" class="avatar_left" />
+                        <div class="avatar_right">
+                            <p class="nn" v-text="pageModel.Seller.NickName"></p>
+                            <p class="fn" v-text="'ID：' + pageModel.Seller.FlowNumber"></p>
+                        </div>
+                    </div>
+                    <p class="phone">
+                        <span v-text="language.SELLER_PHONE_TEXT">賣家聯係方式：</span>
+                        <a v-bind:href="'tel:' + pageModel.Seller.Phone" v-text="pageModel.Seller.Phone"></a>
+                    </p>
+                </div>
+                <van-collapse v-model="activeName" accordion>
+                    <van-collapse-item v-if="pageModel.ReceiveType === '1'" v-bind:title="language.ITEM_1" name="1">
+                        <div class="card">
+                            <p class="bank_name" v-text="pageModel.Seller.OfflinePay.BankName"></p>
+                            <p class="bank_zh" v-text="pageModel.Seller.OfflinePay.BankBranchName"></p>
+                            <p class="bank_number" v-text="formatBankCardNumber()"></p>
+                            <p class="bank_card_name clearfix">
+                                <span class="left" v-text="pageModel.Seller.OfflinePay.BankCardName"></span>
+                                <span class="right" v-text="language.COPY_BUTTON_TEXT">長按卡號複製</span>
+                            </p>
+                        </div>
+                    </van-collapse-item>
+                    <van-collapse-item v-else-if="pageModel.ReceiveType === '2'" v-bind:title="language.ITEM_4" name="2">
+                        <img src="../../../content/img/USDT.png" class="icon" />
+                        <p class="err" v-text="pageModel.Seller.Usdt.Address"></p>
+                        <button class="copy">
+                            <i class="iconfont iconcopy"></i>
+                            <span v-text="language.COPY_USDT_ADDRESS_BUTTON">長按上方地址複製</span>
+                        </button>
+                    </van-collapse-item>
+                </van-collapse>
+            </div>
+        </div>
+    </div>
+    <script src="../../../content/js/vue.js"></script>
+    <script src="../../../content/js/vant.min.js"></script>
+    <script src="../../../content/js/base.js"></script>
+    <script src="../../../content/js/pages/center/child/seller.info.js"></script>
+</body>
+</html>

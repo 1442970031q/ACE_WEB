@@ -1,0 +1,158 @@
+﻿.van-search .van-cell:not(:last-child)::after {
+    border: 0;
+}
+
+.van-search .van-cell .iconfont {
+    margin-right: 10px;
+}
+
+html, body {
+    height: 100%;
+}
+
+.panel {
+    width: 80%;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+    .panel .title {
+        padding: 15px 10px;
+        font-size: .9em;
+        background-color: #1e81d2;
+        color: white;
+    }
+
+    .panel .type_cell {
+        line-height: 35px !important;
+    }
+
+        .panel .type_cell .van-radio__input {
+            height: initial;
+        }
+
+        .panel .type_cell .van-cell__title {
+            font-size: .9em;
+        }
+
+    .panel .type_action .type_btn {
+        float: left;
+        border-radius: 0;
+        width: 50%;
+        margin-top: 0;
+        padding: 15px 0;
+    }
+
+        .panel .type_action .type_btn.cancel {
+            background-color: #e0e0e0;
+            color: #1b1b1b;
+        }
+
+            .panel .type_action .type_btn.cancel:active {
+                background-color: #bfbebe;
+            }
+
+.fixed_top {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    z-index: 1;
+    background-color: white !important;
+    padding-top: 0;
+}
+
+.van-search .van-cell {
+    background-color: #f9f9f9;
+}
+
+.loading-box {
+    padding-top: 40%;
+}
+
+#chart-container {
+    position: relative;
+    z-index: 0;
+    padding-top: 44px;
+}
+
+    #chart-container .orgchart {
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        width: 100%;
+        display: block;
+        background: none;
+        padding: 0;
+        border: 0;
+    }
+
+        #chart-container .orgchart .node {
+            width: initial !important;
+        }
+
+            #chart-container .orgchart .node .title {
+                background-color: #068dfe;
+                padding: 0 10px;
+            }
+
+            #chart-container .orgchart .node .content {
+                border: 1px solid #1e81d2;
+                height: 35px;
+                line-height: 35px;
+                padding: 0 10px;
+            }
+
+.orgchart td.right,
+.orgchart td.top,
+.orgchart td.left {
+    border-color: #1e81d2;
+}
+
+.orgchart td > .down {
+    background-color: #1e81d2;
+}
+
+.actions {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    line-height: 50px;
+    text-align: center;
+    display: flex;
+}
+
+    .actions .btn {
+        color: white;
+        font-size: .9em;
+        background-color: #068dfe;
+    }
+
+        .actions .btn.safe {
+            padding-bottom: 10px;
+        }
+
+        .actions .btn.up {
+            width: 33.33333%;
+            color: #b1b1b1;
+            font-size: .9em;
+            position: relative;
+            background-color: #e6e6e6;
+        }
+
+            .actions .btn.up.enable {
+                color: white;
+                background-color: #068dfe;
+            }
+
+        .actions .btn.left_down {
+            width: 33.33333%;
+        }
+
+            .actions .btn.left_down:active,
+            .actions .btn.up.enable:active {
+                background-color: #047adc;
+            }

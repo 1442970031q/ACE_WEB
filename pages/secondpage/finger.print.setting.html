@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover" />
+    <title></title>
+    <link href="../../content/css/base.css" rel="stylesheet" />
+    <link href="../../content/css/vant.css" rel="stylesheet" />
+    <link href="../../content/css/pages/secondpage/finger.print.setting.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <div id="app">
+        <div id="app-head" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+            <i id="app-back-button" class="iconfont iconzuo right-back"></i>
+            <div class="app-head-text" v-text="language.TITLE_TEXT"></div>
+        </div>
+        <div id="app-content" v-cloak>
+            <div v-if="isOpened" >
+                <div class="support" v-if="isSupport && isEnrolled && isKeyguard">
+                    <p class="title">已開啓指紋解鎖</p>
+                    <p class="des">指紋解鎖功能已開啓，如需關閉請點擊下方按鈕</p>
+                    <img src="../../content/img/fingerprint/fingerprint_set.png" class="icon" />
+                    <button class="confirm_button" @click="closeFingerPrint">關閉指紋鎖</button>
+                </div>
+            </div>
+            <div v-else>
+                <div class="support" v-if="isSupport && isEnrolled && isKeyguard">
+                    <p class="title">開啓指紋解鎖</p>
+                    <p class="des">指紋解鎖功能并已準備就緒，是否開啓這個功能？</p>
+                    <img src="../../content/img/fingerprint/fingerprint.png" class="icon" />
+                    <button class="confirm_button" @click="openFingerPrint">立即開啓</button>
+                </div>
+                <div class="support" v-else-if="isSupport && !isKeyguard">
+                    <p class="title">未開啓密碼鎖屏</p>
+                    <p class="des">您的手機支持指紋解鎖功能但并未開啓密碼鎖屏功能，請開啓后再設置指紋鎖</p>
+                    <img src="../../content/img/fingerprint/fingerprint.png" class="icon" />
+                    <p class="question" @click="showTips">這是什麽意思？</p>
+                </div>
+                <div class="support" v-else-if="isSupport && !isEnrolled">
+                    <p class="title">未錄入指紋信息</p>
+                    <p class="des">您的手機支持指紋解鎖功能但并未錄入指紋信息，請錄入后再設置指紋鎖</p>
+                    <img src="../../content/img/fingerprint/fingerprint.png" class="icon" />
+                </div>
+                <div class="support not" v-else>
+                    <p class="title">不支持指紋解鎖</p>
+                    <p class="des">很遺憾，檢測到您的手機似乎并不支持指紋解鎖功能</p>
+                    <img src="../../content/img/fingerprint/fingerprint.png" class="icon" />
+                </div>
+            </div>
+            <van-dialog v-model="isPasswordInput"
+                        v-bind:title="language.CONFIRM_TRADE"
+                        v-bind:before-close="checkPassword"
+                        show-cancel-button>
+                <input type="password"
+                       ref="passwordBox"
+                       maxlength="16"
+                       class="pwd_box"
+                       v-model="form.password"
+                       v-bind:placeholder="language.INPUT_TRANSFER_PASSWORD" />
+            </van-dialog>
+        </div>
+    </div>
+    <script src="../../content/js/vue.js"></script>
+    <script src="../../content/js/vant.min.js"></script>
+    <script src="../../content/js/base.js"></script>
+    <script src="../../content/js/pages/secondpage/finger.print.setting.js"></script>
+</body>
+</html>

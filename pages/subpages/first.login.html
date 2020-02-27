@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover" />
+    <link href="../../content/css/vant.css" rel="stylesheet" />
+    <link href="../../content/css/base.css" rel="stylesheet" />
+    <link href="../../content/css/pages/subpages/first.login.css" rel="stylesheet" />
+    <title></title>
+    
+</head>
+<body>
+    <div id="app">
+        <h4 class="caption van-hairline--bottom" v-text="language.TITLE_TEXT"></h4>
+        <ul class="items">
+            <li>
+                <div class="clearfix">
+                    <i class="iconfont iconmibaowenti item_left"></i>
+                    <div class="item_right">
+                        <p class="title" v-text="language.ITEM_TITLE_1">密保問題</p>
+                        <p class="desc" v-text="language.ITEM_DESC_1">當您忘記密碼時可以用過該方式找回</p>
+                    </div>
+                </div>
+                <button class="confirm_button" v-text="resetObject.isSetQuestion ? language.BUTTON_2 : language.BUTTON_1" @click="!resetObject.isSetQuestion && gotoQuestion()">立即重置</button>
+            </li>
+            <li>
+                <div class="clearfix">
+                    <i class="iconfont iconqianbao1 item_left"></i>
+                    <div class="item_right">
+                        <p class="title" v-text="language.ITEM_TITLE_2">交易密碼</p>
+                        <p class="desc" v-text="language.ITEM_DESC_2">為了您的資產安全，請重置您的“交易密碼”</p>
+                    </div>
+                </div>
+                <button class="confirm_button" v-text="resetObject.isSetPin ? language.BUTTON_2 : language.BUTTON_1" @click="!resetObject.isSetPin && gotoPin()">立即重置</button>
+            </li>
+        </ul>
+        <button class="confirm_button normal full van-hairline--top" @click="gotoLogin" v-text="language.BUTTON_3">返回登錄</button>
+    </div>
+    <script src="../../content/js/vue.js"></script>
+    <script src="../../content/js/vant.min.js"></script>
+    <script src="../../content/js/base.js"></script>
+    <script>
+        var _vue = new Vue({
+            el: '#app',
+            data: {
+                'resetObject': {
+                    'isSetQuestion': false,
+                    'isSetPin': false
+                },
+                'language': {}
+            },
+            methods: {
+                'resetItem': function (key) {
+                    APP.GLOBAL.setItem(APP.CONFIG.SYSTEM_KEYS[key], 'true');
+                    if (key === 'FIRST_LOGIN_QUESTION_KEY') {
+                        this.resetObject.isSetQuestion = true;
+                    } else if (key === 'FIRST_LOGIN_RESETPIN_KEY') {
+                        this.resetObject.isSetPin = true;
+                    }
+
+                    var questionKey = APP.GLOBAL.getItem(APP.CONFIG.SYSTEM_KEYS.FIRST_LOGIN_QUESTION_KEY);
+                    var pinKey = APP.GLOBAL.getItem(APP.CONFIG.SYSTEM_KEYS.FIRST_LOGIN_RESETPIN_KEY);
+                    if (questionKey === 'true' && pinKey === 'true') {
+                        APP.GLOBAL.updateUserModel({
+                            'IsSetSecurityQuestion': true
+                        });
+
+                        plus.webview.getWebviewById('mainPage').evalJS('_vue.setWebviewMaskVisible(false)');
+                        APP.GLOBAL.closeWindow();
+                    }
+                },
+                'gotoQuestion': function () {
+                    APP.GLOBAL.gotoNewWindow('reset.questionPage', '../center/security/reset.question', {
+                        'ani': 'slide-in-bottom'
+                    });
+                },
+                'gotoPin': function () {
+                    APP.GLOBAL.gotoNewWindow('change.pinPage', '../center/security/change.pin', {
+                        'ani': 'slide-in-bottom'
+                    });
+                },
+                'gotoLogin': function () {
+                    APP.GLOBAL.gotoNewWindow('loginPage', '../account/login', {
+                        'ani': 'slide-in-bottom',
+                        'openCallback': function () {
+                            plus.webview.close('mainPage', 'none');
+                            APP.GLOBAL.closeWindow('none');
+                        }
+                    });
+                },
+                'changeLanguage': function () {
+                    LSE.install('first.login', function (lang) {
+                        Vue.set(_vue, 'language', lang);
+                    });
+                }
+            },
+            created: function () {
+                this.changeLanguage();
+
+                window.backButton = function () {
+                    APP.GLOBAL.toastMsg(_vue.language.MSG_TEXT);
+                };
+            }
+        });
+    </script>
+</body>
+</html>

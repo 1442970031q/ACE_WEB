@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover" />
+    <title></title>
+    <link href="../../../content/css/base.css" rel="stylesheet" />
+    <link href="../../../content/css/vant.css" rel="stylesheet" />
+    <link href="../../../content/css/pages/center/child/feedback.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <div id="app">
+        <div id="app-head" class="van-hairline--bottom" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+            <i id="app-back-button" class="iconfont iconzuo right-back"></i>
+            <div class="app-head-text" v-text="language.TITLE_TEXT"></div>
+            <button class="submit-button" @click="APP.GLOBAL.gotoNewWindow('my.feedbackPage', 'my.feedback')" v-text="language.BUTTON_2">我的反饋</button>
+        </div>
+        <div id="app-content">
+            <div class="input_group">
+                <div class="input_line">
+                    <span class="input_text" v-text="language.INPUT_TEXT_1">反饋類型</span>
+                    <div class="input_control r-1" v-bind:class="{'gray': !form.type}" @click="isFeedbackTypeShow = true" v-text="typeDisplay"></div>
+                    <i class="iconfont iconjiantou arrow"></i>
+                </div>
+            </div>
+            <div class="input_group">
+                <textarea class="text" v-model="form.text" v-bind:placeholder="language.INPUT_PLACEHOLDER_2"></textarea>
+                <p class="text_count">
+                    <span v-text="form.text.length">0</span>
+                    <span>/</span>
+                    <span>200</span>
+                </p>
+            </div>
+            <div class="image_container" v-cloak>
+                <p class="title" v-text="language.BLOCK_TITLE">上傳截圖（最多3張）</p>
+                <div class="images">
+                    <ul class="clearfix">
+                        <li v-for="(item,index) in imageList"
+                            v-bind:key="index">
+                            <div class="inner">
+                                <i class="iconfont iconbaseline-close-px remove" @click="remove(item)"></i>
+                                <div class="image">
+                                    <img v-bind:src="item.file" />
+                                </div>
+                            </div>
+                        </li>
+                        <li class="plus">
+                            <div class="inner" @click="choiceImage">
+                                <i class="iconfont iconplus"></i>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <button class="confirm_button" @click="checkData" v-text="language.BUTTON_1">提交反饋</button>
+            <van-popup class="border" v-model="isFeedbackTypeShow" position="bottom">
+                <van-picker v-bind:columns="typeList"
+                            @cancel="isFeedbackTypeShow = false"
+                            v-bind:confirm-button-text="language.PICKER_BUTTON_1_TEXT"
+                            v-bind:cancel-button-text="language.PICKER_BUTTON_2_TEXT"
+                            @confirm="confirmType"
+                            show-toolbar="true"
+                            v-bind:title="language.PICKER_TITLE_1"></van-picker>
+            </van-popup>
+        </div>
+    </div>
+    <script src="../../../content/js/vue.js"></script>
+    <script src="../../../content/js/vant.min.js"></script>
+    <script src="../../../content/js/base.js"></script>
+    <script src="../../../content/js/pages/center/child/feedback.js"></script>
+</body>
+</html>

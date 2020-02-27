@@ -1,0 +1,228 @@
+﻿#app-head .right-back {
+    font-size: .9em;
+    width: initial;
+    padding: 0 10px;
+}
+
+#app-head .submit-button {
+    font-size: 1.2em;
+    color: #069bfe;
+}
+
+#app-content {
+    padding-bottom: 65px;
+}
+
+.pd-10 {
+    padding: 10% 0 !important;
+}
+
+.block {
+    width: calc(100% - 20px);
+    margin: 0 auto;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: white;
+    border-radius: 6px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 10px #f1f1f1;
+}
+
+    .block.bg {
+        background-image: url('../../img/top_bg.png');
+        background-size: 225px auto;
+    }
+
+    .block .block_title {
+        font-size: .9em;
+        height: 20px;
+        line-height: 20px;
+    }
+
+    .block .block_content {
+        margin-top: 10px;
+    }
+
+    .block.notice {
+        padding: 0;
+        background-color: transparent;
+        box-shadow: none;
+    }
+
+        .block.notice .block_content {
+            margin-top: 0;
+        }
+
+            .block.notice .block_content .middle {
+                height: 40px;
+                line-height: 30px;
+                padding: 5px 15px;
+                box-sizing: border-box;
+                background-color: #068dfe;
+                border-radius: 4px;
+                font-size: .9em;
+                color: #ffffff;
+                box-shadow: 0px 0px 10px #f1f1f1;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+                .block.notice .block_content .middle .iconfont {
+                    margin-right: 5px;
+                }
+
+    .block .block_content .assets {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+        .block .block_content .assets li {
+            width: 50%;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+            .block .block_content .assets li .text {
+                font-size: .8em;
+                height: 20px;
+                line-height: 20px;
+                margin-top: 5px;
+                color: #068dfe;
+            }
+
+            .block .block_content .assets li .value {
+                font-size: 1.4em;
+                height: 30px;
+                line-height: 30px;
+                color: #5c6875;
+            }
+
+                .block .block_content .assets li .value sup {
+                    font-size: .4em;
+                    font-weight: normal;
+                    margin-left: -5px;
+                }
+
+    .block .block_content .top_context {
+        text-align: center;
+    }
+
+        .block .block_content .top_context .color_red {
+            color: #e82200;
+        }
+
+        .block .block_content .top_context .number {
+            font-size: 2em;
+            font-weight: bold;
+            background-image: url(../../img/home/up.png);
+            background-repeat: no-repeat;
+            background-position: left center;
+            background-size: auto 25px;
+            padding-left: 20px;
+        }
+
+        .block .block_content .top_context .text {
+            text-align: center;
+            height: 20px;
+            line-height: 20px;
+            font-size: .8em;
+            color: #068dfe;
+        }
+
+    .block .block_content .profit {
+        display: flex;
+        margin-top: 10px;
+    }
+
+        .block .block_content .profit li {
+            width: 33.3333%;
+            text-align: center;
+        }
+
+            .block .block_content .profit li .text {
+                font-size: .8em;
+                color: #068dfe;
+            }
+
+            .block .block_content .profit li .value {
+                font-size: .9em;
+                color: #5c6875;
+            }
+
+                .block .block_content .profit li .value sup {
+                    font-size: .6em;
+                    margin-left: -4px;
+                }
+
+    .block .block_content .sell {
+        display: flex;
+        margin-top: 10px;
+    }
+
+        .block .block_content .sell li {
+            width: 50%;
+            text-align: center;
+        }
+
+            .block .block_content .sell li .value {
+                font-size: 1.2em;
+                color: #5c6875;
+                line-height: 20px;
+            }
+
+                .block .block_content .sell li .value sup {
+                    margin-left: -4px;
+                    font-size: .5em;
+                }
+
+            .block .block_content .sell li .text {
+                font-size: .8em;
+                color: #068dfe;
+                height: 20px;
+                line-height: 20px;
+                margin-top: 5px;
+            }
+
+    .block.highChart {
+        padding: 0;
+    }
+
+        .block.highChart .block_title {
+            padding: 10px;
+        }
+
+        .block.highChart .block_content .price {
+            text-align: center;
+            font-size: 1.5em;
+            color: #5c6875;
+            height: 30px;
+        }
+
+            .block.highChart .block_content .price sup {
+                font-weight: normal;
+                font-size: .5em;
+                margin-left: -4px;
+            }
+
+        .block.highChart .block_content .time {
+            text-align: center;
+            font-size: .7em;
+            height: 20px;
+            line-height: 20px;
+            margin-top: 5px;
+            color: #068dfe;
+        }
+
+.notice_frame {
+    height: 475px;
+    overflow: hidden;
+    background-color: #4c4c4c;
+}
+
+    .notice_frame iframe {
+        border: 0;
+        height: 100%;
+    }

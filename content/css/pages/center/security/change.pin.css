@@ -1,0 +1,45 @@
+﻿.warn {
+    padding: 10px;
+    font-size: .9em;
+    margin-top: 5px;
+    color: #f9bc0b;
+    background-color: #fef7e1;
+    border-color: #fef3d2;
+    text-align: left;
+    width: calc(100% - 20px);
+    margin: 0 auto;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+    .warn.text-left {
+        text-align: left;
+    }
+
+.input_content {
+    width: calc(100% - 20px);
+    margin: 0 auto;
+    margin-top: 10px;
+    background-color: white;
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+    .input_content .rule {
+        font-size: 1.1em;
+        display: block;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+
+    .input_content .rules {
+        padding-left: 15px;
+    }
+
+        .input_content .rules .rule_item {
+            font-size: .8em;
+            color: #777;
+            line-height: 20px;
+            list-style-type: disc;
+        }

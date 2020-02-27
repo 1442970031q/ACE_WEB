@@ -1,0 +1,98 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover" />
+    <title></title>
+    <link href="../content/css/base.css" rel="stylesheet" />
+    <link href="../content/css/vant.css" rel="stylesheet" />
+    <link href="../content/css/pages/ace.list.css" rel="stylesheet" />
+    <link href="../content/css/bottom.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="app">
+        <div id="app-head" class="fixed van-hairline--bottom" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+            <div class="app-head-text" v-text="language.TITLE_TEXT"></div>
+            <button v-show="!isLoading" class="submit-button" @click="APP.GLOBAL.gotoNewWindow('my.acePage', 'secondpage/my.ace')">
+                <i class="iconfont iconmai1 icon"></i>
+                <span v-text="language.BUTTON_1">我的買賣</span>
+            </button>
+        </div>
+        <div id="app-content" v-bind:style="{'paddingTop': (45 + statusbarHeight) + 'px'}">
+            <div v-if="isLoading" class="loading-box p50">
+                <van-loading color="black"></van-loading>
+                <p class="loading-text" v-text="language.LOADING_TEXT"></p>
+            </div>
+            <van-pull-refresh v-model="isReloading"
+                              @refresh="onRefresh"
+                              v-else
+                              v-cloak
+                              v-bind:pulling-text="language.PULLING_TEXT"
+                              v-bind:loosing-text="language.LOOSING_TEXT"
+                              v-bind:loading-text="language.LOADING_TEXT"
+                              v-bind:success-text="language.SUCCESS_TEXT">
+                <div slot="loading" class="pull_refresh">
+                    <img src="../content/img/reloading.svg" class="pull_refresh_img" />
+                    <span class="pull_refresh_text">正在刷新...</span>
+                </div>
+                <div v-if="pageModel.list.length === 0" class="none-data">
+                    <i class="iconfont iconkong"></i>
+                    <p class="none-data-text" v-text="language.NONE_DATA_TEXT">暫無出售信息</p>
+                </div>
+                <div v-else>
+                    <ul class="list">
+                        <li v-for="(item,index) in pageModel.list"
+                            v-bind:key="index"
+                            @click="gotoDetail(item)">
+                            <div class="top clearfix">
+                                <img v-lazy="item.Seller.Avatar" class="image" />
+                                <div class="fn" v-text="item.Seller.FlowNumber"></div>
+                                <div class="state">
+                                    <span v-text="language.STATE_TEXT">交易完成</span>
+                                </div>
+                            </div>
+                            <ul class="info">
+                                <li>
+                                    <p class="value" v-text="numberFormat(item.ReadonlyStockCount, 0)"></p>
+                                    <p class="text" v-text="language.LI_1_TEXT">挂賣總數</p>
+                                </li>
+                                <li>
+                                    <p class="value" v-text="numberFormat(item.SinglePrice, 3)"></p>
+                                    <p class="text" v-text="language.LI_2_TEXT">股價</p>
+                                </li>
+                                <li>
+                                    <p class="value" v-text="numberFormat(item.ReadonlyStockCount * item.SinglePrice, 3)"></p>
+                                    <p class="text" v-text="language.LI_3_TEXT">價值美金</p>
+                                </li>
+                            </ul>
+                            <p class="time" v-text="item.CreateTime"></p>
+                        </li>
+                    </ul>
+                    <div v-if="pageModel.isLoadMore" class="load_more clearfix">
+                        <van-loading color="black"></van-loading>
+                        <span class="load_text" v-text="language.LOADING_TEXT">正在加載...</span>
+                    </div>
+                    <div v-if="pageModel.isLoadComplete" class="load_more_complete">
+                        <span class="load_text" v-text="language.LOAD_COMPLETE_TEXT">沒有更多的數據了...</span>
+                    </div>
+                </div>
+            </van-pull-refresh>
+        </div>
+        <div id="bottom" class="panel pos van-hairline--top">
+            <ul id="bottom-menus-items" class="menus clearfix">
+                <li v-for="(item, index) in menus"
+                    v-bind:key="index"
+                    v-bind:class="{'active': currentIndex === item.index}"
+                    @click="window.location = item.url">
+                    <i class="iconfont icon" v-bind:class="[currentIndex === item.index ? item.active : item.default]"></i>
+                    <p class="menus-text" v-text="item.text"></p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script src="../content/js/vue.js"></script>
+    <script src="../content/js/vant.min.js"></script>
+    <script src="../content/js/base.js"></script>
+    <script src="../content/js/pages/ace.list.js"></script>
+</body>
+</html>

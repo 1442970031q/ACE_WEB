@@ -1,0 +1,139 @@
+﻿.van-loading__spinner {
+    width: 60px;
+    height: 60px;
+}
+
+.panel {
+    margin: 0 auto;
+    margin-top: 10px;
+    width: calc(100% - 20px);
+    overflow: hidden;
+    border-radius: 4px;
+    box-shadow: 0 0 10px 0 #ececec;
+}
+
+    .panel .seller {
+        background-color: #f9f9f9;
+        padding: 10px;
+    }
+
+        .panel .seller .avatar_box .avatar_left {
+            width: 50px;
+            height: 50px;
+            display: block;
+            border-radius: 50%;
+            float: left;
+        }
+
+        .panel .seller .avatar_box .avatar_right {
+            float: left;
+            width: calc(100% - 60px);
+            margin-left: 10px;
+        }
+
+            .panel .seller .avatar_box .avatar_right p {
+                height: 25px;
+                line-height: 25px;
+                color: #616161;
+            }
+
+                .panel .seller .avatar_box .avatar_right p.fn {
+                    font-size: .8em;
+                }
+
+        .panel .seller .phone {
+            margin-top: 10px;
+            height: 25px;
+            line-height: 25px;
+            display: block;
+            font-size: .9em;
+            text-align: center;
+            background-color: #f3f3f3;
+            padding: 5px;
+            border-radius: 4px;
+            color: #9a9a9a;
+            border: 1px solid #ececec;
+        }
+
+            .panel .seller .phone a {
+                color: #068dfe;
+                font-weight: bold;
+            }
+
+.card {
+    padding: 10px;
+    border-radius: 4px;
+    background: -webkit-linear-gradient(left,#41a8ff,#068dfe);
+    color: white;
+    box-shadow: 0 0 10px 0 #b0daff;
+}
+
+    .card .bank_name {
+        font-size: 1.2em;
+        font-weight: bold;
+        height: 25px;
+        line-height: 25px;
+    }
+
+    .card .bank_zh {
+        height: 25px;
+        line-height: 25px;
+        color: rgba(255, 255, 255, 0.75);
+    }
+
+    .card .bank_number {
+        text-align: center;
+        font-size: 1.5em;
+        margin: 10px 0;
+        font-weight: bold;
+    }
+
+    .card .bank_card_name {
+        height: 30px;
+        line-height: 30px;
+    }
+
+        .card .bank_card_name .left {
+            float: left;
+            font-size: 1.2em;
+        }
+
+        .card .bank_card_name .right {
+            float: right;
+            padding: 0 5px;
+        }
+
+.icon {
+    display: block;
+    margin: 0 auto;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid #f9f9f9;
+    padding: 5px;
+}
+
+.err {
+    text-align: center;
+    font-size: 1.1em;
+    margin-top: 5px;
+    word-break: break-all;
+}
+
+.copy {
+    display: block;
+    margin: 0 auto;
+    height: 35px;
+    line-height: 35px;
+    margin-top: 5px;
+    padding: 0 8px;
+}
+
+    .copy:active {
+        background-color: #f9f9f9;
+        border-radius:4px;
+    }
+
+    .copy .iconfont {
+        margin-right: 2px;
+    }

@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover" />
+    <title></title>
+    <link href="../../../content/css/base.css" rel="stylesheet" />
+    <link href="../../../content/css/vant.css" rel="stylesheet" />
+    <style>
+        .container {
+            margin: 0 auto;
+            text-align: center;
+            padding-top: 30%;
+        }
+
+            .container .iconfont.success {
+                color: green;
+                font-size: 5em;
+            }
+
+            .container .iconfont.star {
+                color: #f9d102;
+            }
+
+            .container .list {
+                width: 80%;
+                background-color: white;
+                margin: 20px auto;
+                padding: 15px;
+                border-radius: 6px;
+            }
+
+                .container .list li {
+                    text-align: center;
+                    font-size: .9em;
+                    color: #5c6875;
+                    margin-bottom: 10px;
+                }
+
+                    .container .list li .text {
+                        float: left;
+                        font-weight: bold;
+                    }
+
+                    .container .list li .value {
+                        float: right;
+                    }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="app-head" class="van-hairline--bottom">
+            <i id="app-back-button" class="iconfont iconzuo right-back"></i>
+            <div class="app-head-text" v-text="language.TITLE_TEXT">創建子賬戶</div>
+        </div>
+        <div id="app-content">
+            <div class="container">
+                <i class="iconfont iconzhengque success"></i>
+                <h3 v-text="language.SUCCESS_TEXT">創建成功</h3>
+                <ul class="list">
+                    <li class="clearfix text">
+                        <span class="text" v-text="language.ITEM_1_TEXT">投資級別</span>
+                        <span class="value" v-html="request.levelName"></span>
+                    </li>
+                    <li class="clearfix text">
+                        <span class="text" v-text="language.ITEM_2_TEXT">接點人</span>
+                        <span class="value" v-text="request.playerName"></span>
+                    </li>
+                    <li class="clearfix text">
+                        <span class="text" v-text="language.ITEM_3_TEXT">位置</span>
+                        <span class="value" v-text="request.pos === '1' ? language.POS_LEFT_TEXT : language.POS_RIGHT_TEXT"></span>
+                    </li>
+                </ul>
+            </div>
+            <button class="confirm_button" v-text="language.BUTTON" @click="window.location = '../my.fans.tree.html?pi=' + APP.GLOBAL.queryString('parentId')">確認</button>
+        </div>
+    </div>
+    <script src="../../../content/js/vue.js"></script>
+    <script src="../../../content/js/vant.min.js"></script>
+    <script src="../../../content/js/base.js"></script>
+    <script src="../../../content/js/pages/center/success/new.user.success.js"></script>
+</body>
+</html>

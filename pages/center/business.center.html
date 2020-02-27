@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover" />
+    <title></title>
+    <link href="../../content/css/base.css" rel="stylesheet" />
+    <link href="../../content/css/vant.css" rel="stylesheet" />
+    <link href="../../content/css/pages/center/business.center.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="app">
+        <div id="app-head" class="fixed" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+            <i id="app-back-button" class="iconfont iconzuo right-back"></i>
+            <div class="app-head-text" v-text="language.TITLE_TEXT">買賣中心</div>
+        </div>
+        <div id="app-content">
+            <van-tabs v-model="tabActive"
+                      v-cloak
+                      v-bind:style="{'top': (45 + statusbarHeight) + 'px'}"
+                      @change="tabChange">
+                <van-tab v-bind:title="language.TAB_1">
+                    <div v-if="tabControl[0].isLoading" class="loading-box p50">
+                        <van-loading color="black"></van-loading>
+                        <p class="loading-text" v-text="language.LOADING_TEXT"></p>
+                    </div>
+                    <div v-else>
+                        <div v-if="tabControl[0].list.length === 0" class="none-data p50">
+                            <i class="iconfont iconwu"></i>
+                            <p class="none-data-text" v-text="language.NONE_DATA_TEXT">暂无订单信息</p>
+                        </div>
+                        <div v-else>
+                            <ul class="list">
+                                <li v-for="(item,index) in tabControl[0].list"
+                                    v-bind:key="index">
+                                    <div class="top clearfix">
+                                        <span class="fn" v-text="item.FlowNumber"></span>
+                                        <span class="state" v-text="item.StatusText"></span>
+                                    </div>
+                                    <ul class="info" v-bind:class="{'w50': item.Status === 8}">
+                                        <li>
+                                            <p class="value" v-text="numberFormat(item.EPAmount, 0)"></p>
+                                            <p class="text" v-text="language.LI_1_TEXT">EP數量</p>
+                                        </li>
+                                        <li>
+                                            <p class="value" v-text="getBuyTime(item)">‭‬</p>
+                                            <p class="text" v-text="language.LI_2_TEXT">購買時間</p>
+                                        </li>
+                                        <li v-if="item.Status !== 8">
+                                            <p class="value" v-text="getTimeout(item)" v-bind:class="{'red': isTimeout(item)}">‭‬</p>
+                                            <p class="text" v-text="language.LI_3_TEXT">超時時間</p>
+                                        </li>
+                                    </ul>
+                                    <div class="time clearfix">
+                                        <div class="icons">
+                                            <img v-if="item.ReceiveType === '1' || item.ReceiveType === null" src="../../content/img/pays/yl_pay.png" />
+                                            <img v-if="item.ReceiveType === '2'" src="../../content/img/pays/usdt_pay.png" />
+                                        </div>
+                                        <span class="time_text" v-text="item.CreateTime"></span>
+                                    </div>
+                                    <div class="bottom" v-if="item.Status !== 8 && item.Status !== 128 && item.Status !== 64">
+                                        <van-button v-if="item.Status === 2" hairline class="left default" size="small" @click="gotoSellInfo(item)" v-text="language.BUTTON_5">查看賣家信息</van-button>
+                                        <van-button v-if="item.Status === 2" size="small" type="info" @click="confirmPay(item)" v-text="language.BUTTON_1">確認付款</van-button>
+                                        <van-button v-if="item.Status === 2" hairline size="small" class="default" @click="cancelBuy(item)" v-text="language.BUTTON_2">取消購買</van-button>
+                                        <van-button v-if="item.Status === 4" size="small" type="danger" @click="showComplaint(item)" v-text="language.BUTTON_3">我要投訴</van-button>
+                                        <van-button v-if="item.Status === 16 || item.Status === 32" size="small" type="danger" @click="showProof(item)" v-text="language.BUTTON_4">上傳憑證</van-button>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div v-if="tabControl[0].isLoadMore" class="load_more clearfix">
+                                <van-loading color="black"></van-loading>
+                                <span class="load_text" v-text="language.LOADING_TEXT">正在加載...</span>
+                            </div>
+                            <div v-if="tabControl[0].isLoadComplete" class="load_more_complete">
+                                <span class="load_text" v-text="language.LOAD_COMPLETE_TEXT">沒有更多的數據了...</span>
+                            </div>
+                        </div>
+                    </div>
+                </van-tab>
+                <van-tab v-bind:title="language.TAB_2">
+                    <div v-if="tabControl[1].isLoading" class="loading-box p50">
+                        <van-loading color="black"></van-loading>
+                        <p class="loading-text" v-text="language.LOADING_TEXT"></p>
+                    </div>
+                    <div v-else>
+                        <div v-if="tabControl[1].list.length === 0" class="none-data p50">
+                            <i class="iconfont iconwu"></i>
+                            <p class="none-data-text" v-text="language.NONE_DATA_TEXT">暂无订单信息</p>
+                        </div>
+                        <div v-else>
+                            <ul class="list">
+                                <li v-for="(item,index) in tabControl[1].list"
+                                    v-bind:key="index">
+                                    <div class="top clearfix">
+                                        <div class="fn" v-text="item.FlowNumber"></div>
+                                        <span class="state" v-text="item.StatusText"></span>
+                                    </div>
+                                    <ul class="info w50">
+                                        <li>
+                                            <p class="value" v-text="numberFormat(item.EPAmount, 0)"></p>
+                                            <p class="text" v-text="language.LI_1_TEXT">EP數量</p>
+                                        </li>
+                                        <li>
+                                            <p class="value" v-text="getPaymentTime(item)">‭‬</p>
+                                            <p class="text" v-text="language.LI_4_TEXT">付款時間</p>
+                                        </li>
+                                    </ul>
+                                    <div class="time clearfix">
+                                        <div class="mp" v-if="item.BuyerPhone">
+                                            <a v-bind:href="'tel:' + item.BuyerPhone" v-text="language.BUYER_PHONE_TEXT + item.BuyerPhone"></a>
+                                        </div>
+                                        <span class="time_text" v-text="item.CreateTime"></span>
+                                    </div>
+                                    <div class="bottom" v-if="item.Status !== 8 && item.Status !== 128 && item.Status !== 64">
+                                        <van-button v-if="item.Status === 1" size="small" type="danger" v-text="language.BUTTON_7" @click="cancelSell(item)">取消挂賣</van-button>
+                                        <van-button v-if="item.Status === 4" size="small" type="info" @click="confirmReceive(item)" v-text="language.BUTTON_6">確認收款</van-button>
+                                        <van-button v-if="item.Status === 2 || item.Status === 4" size="small" type="danger" @click="showComplaint(item)" v-text="language.BUTTON_3">我要投訴</van-button>
+                                        <van-button v-if="item.Status === 16 || item.Status === 32" size="small" type="danger" @click="showProof(item)" v-text="language.BUTTON_4">上傳憑證</van-button>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div v-if="tabControl[1].isLoadMore" class="load_more clearfix">
+                                <van-loading color="black"></van-loading>
+                                <span class="load_text" v-text="language.LOADING_TEXT">正在加載...</span>
+                            </div>
+                            <div v-if="tabControl[1].isLoadComplete" class="load_more_complete">
+                                <span class="load_text" v-text="language.LOAD_COMPLETE_TEXT">沒有更多的數據了...</span>
+                            </div>
+                        </div>
+                    </div>
+                </van-tab>
+            </van-tabs>
+            <van-dialog v-cloak
+                        v-model="isShowConfirmPayPassword"
+                        v-bind:title="language.PASSWORD_CONFIRM_POPUP_TITLE_TEXT"
+                        v-bind:before-close="checkConfirmPayPassword"
+                        show-cancel-button>
+                <input type="password"
+                       ref="passwordBox"
+                       maxlength="16"
+                       class="confirm_input"
+                       v-model="form.password"
+                       v-bind:placeholder="language.PASSWORD_INPUT_PLACEHOLDER" />
+            </van-dialog>
+            <van-popup v-cloak
+                       class="complaint"
+                       v-model="isComplaintShow"
+                       position="bottom">
+                <textarea class="textarea_full" v-bind:placeholder="language.COMPLAINT_PLACEHOLDER" maxlength="100" v-model="form.remark"></textarea>
+                <button class="confirm_button full" @click="checkComplaintData" v-text="language.BUTTON_8">提交投訴</button>
+            </van-popup>
+            <van-popup v-cloak
+                       class="proof"
+                       v-model="isProofShow"
+                       v-bind:close-on-click-overlay="false"
+                       position="bottom">
+                <div class="proof_inner">
+                    <div class="p_left">
+                        <p class="title" v-text="language.PROOF_TITLE_1">點擊上傳轉賬截圖</p>
+                        <div class="plus">
+                            <div v-if="!proofObject.imageUrl">
+                                <input type="file" class="file" @change="fileChanged" accept="image/png,image.jpg" />
+                                +
+                            </div>
+                            <img v-else v-bind:src="proofObject.imageUrl" />
+                        </div>
+                    </div>
+                    <div class="p_right">
+                        <p class="title" v-text="language.PROOF_TITLE_2">在下方输入描述信息</p>
+                        <textarea class="textarea_full" v-model="proofObject.remark" v-bind:placeholder="language.PROOF_PLACEHOLDER" maxlength="200"></textarea>
+                    </div>
+                </div>
+                <div class="actions">
+                    <button class="confirm_button normal" @click="closeProof" v-text="language.BUTTON_10">取消</button>
+                    <button class="confirm_button" @click="checkProofData" v-text="language.BUTTON_9">提交憑證</button>
+                </div>
+            </van-popup>
+        </div>
+    </div>
+    <script src="../../content/js/vue.js"></script>
+    <script src="../../content/js/vant.min.js"></script>
+    <script src="../../content/js/base.js"></script>
+    <script src="../../content/js/pages/center/business.center.js"></script>
+</body>
+</html>

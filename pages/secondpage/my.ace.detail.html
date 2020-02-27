@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover" />
+    <title></title>
+    <link href="../../content/css/base.css" rel="stylesheet" />
+    <link href="../../content/css/vant.css" rel="stylesheet" />
+    <link href="../../content/css/pages/secondpage/my.ace.detail.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <div id="app">
+        <div id="app-head" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+            <i id="app-back-button" class="iconfont iconzuo right-back"></i>
+            <div class="app-head-text" v-text="language.TITLE_TEXT"></div>
+        </div>
+        <div id="app-content">
+            <div v-if="isLoading" class="loading-box p50">
+                <van-loading color="black"></van-loading>
+                <p class="loading-text" v-text="language.LOADING_TEXT">正在載入...</p>
+            </div>
+            <div v-else v-cloak>
+                <div class="top_content">
+                    <p class="title" v-text="language.SELL_DETAIL">出售信息</p>
+                    <div class="sell">
+                        <span class="number" v-text="numberFormat(request.count, 0)"></span>
+                        <sup class="s" v-text="language.SELL_NAME">ACE</sup>
+                        <p class="text" v-text="language.SELL_AMOUNT">出售數量</p>
+                    </div>
+                    <p class="time" v-text="request.time"></p>
+                </div>
+                <div class="buyer_content">
+                    <p class="title" v-text="language.BUYER_LIST">買家列表</p>
+                    <div v-if="list.length == 0" class="none-data">
+                        <i class="iconfont iconwu"></i>
+                        <p class="none-data-text" v-text="language.NONE_BUYER_DATA_YOU_KNOW">無購買記錄(你懂的)</p>
+                    </div>
+                    <table v-else class="tab">
+                        <thead>
+                            <tr>
+                                <td v-text="language.BUYER">買家</td>
+                                <td v-text="language.BUY_AMOUNT">數量</td>
+                                <td v-text="language.BUY_PRICE">成交價</td>
+                                <td v-text="language.BUY_DATE">時間</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(item,index) in list" v-bind:key="index">
+                                <td v-text="item.Buyer.NickName + '(' + item.Buyer.FlowNumber + ')'"></td>
+                                <td v-text="numberFormat(item.AceAmount, 0)"></td>
+                                <td v-text="item.SinglePrice"></td>
+                                <td v-text="item.CreateTime"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../content/js/vue.js"></script>
+    <script src="../../content/js/vant.min.js"></script>
+    <script src="../../content/js/base.js"></script>
+    <script src="../../content/js/pages/secondpage/my.ace.detail.js"></script>
+</body>
+</html>

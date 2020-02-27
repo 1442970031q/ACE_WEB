@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover" />
+    <title></title>
+    <link href="../../content/css/base.css" rel="stylesheet" />
+    <link href="../../content/css/vant.css" rel="stylesheet" />
+    <link href="../../content/css/pages/center/rp.out.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <div id="app">
+        <div id="app-head" class="fixed" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+            <i id="app-back-button" class="iconfont iconzuo right-back"></i>
+            <div class="app-head-text" v-text="language.TITLE_TEXT">EP轉出</div>
+        </div>
+        <div id="app-content" v-bind:style="{'paddingTop': (45 + statusbarHeight) + 'px'}">
+            <div class="sell_info">
+                <ul>
+                    <li>
+                        <p class="text" v-text="language.LI_TEXT_1">EP數量</p>
+                        <p class="value" v-text="numberFormat(currentUser.EP, 2)"></p>
+                    </li>
+                </ul>
+            </div>
+            <div class="input_group border">
+                <p class="alert">單筆轉出不得低於100EP，且玩家之間不能互轉</p>
+                <div class="input_line van-hairline--bottom">
+                    <span class="input_text" v-text="language.INPUT_TEXT_1">服務中心ID</span>
+                    <input type="text"
+                           class="input_control"
+                           @blur="searchPlayer"
+                           v-model="receiveDisplay"
+                           v-bind:placeholder="language.INPUT_PLACEHOLDER_1" />
+                </div>
+                <div class="input_line van-hairline--bottom">
+                    <span class="input_text" v-text="language.INPUT_TEXT_2">中心昵稱</span>
+                    <div class="input_control">
+                        <van-loading v-if="isPlayerLoading" color="black" class="search_player"></van-loading>
+                        <span v-else class="input-control" v-bind:class="{'red': isNotFound}" v-text="playerNickname"></span>
+                    </div>
+                </div>
+                <div class="input_line van-hairline--bottom">
+                    <span class="input_text" v-text="language.INPUT_TEXT_3">轉出數量</span>
+                    <input type="number" class="input_control" v-model="form.amount" v-bind:placeholder="language.INPUT_PLACEHOLDER_3" />
+                </div>
+                <div class="input_line van-hairline--bottom">
+                    <span class="input_text" v-text="language.INPUT_TEXT_4">交易密碼</span>
+                    <input type="password" class="input_control" v-model="form.password" v-bind:placeholder="language.INPUT_PLACEHOLDER_4" />
+                </div>
+                <div class="input_line van-hairline--bottom">
+                    <span class="input_text" v-text="language.INPUT_TEXT_5">Google验证码</span>
+                    <input type="number" 
+                           class="input_control" 
+                           v-model="form.gCode" 
+                           v-bind:placeholder="language.INPUT_PLACEHOLDER_6" />
+                </div>
+            </div>
+            <div class="input_group border">
+                <div class="input_line full">
+                    <textarea class="textarea_control" v-model="form.des" v-bind:placeholder="language.INPUT_PLACEHOLDER_5" maxlength="500"></textarea>
+                </div>
+            </div>
+            <button class="confirm_button" v-text="language.BUTTON_TEXT_1" @click="checkData">確認轉換</button>
+        </div>
+    </div>
+    <script src="../../content/js/vue.js"></script>
+    <script src="../../content/js/vant.min.js"></script>
+    <script src="../../content/js/base.js"></script>
+    <script src="../../content/js/pages/center/ep.out.js"></script>
+</body>
+</html>

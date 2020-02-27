@@ -1,0 +1,39 @@
+﻿.avatar {
+    width: 58px;
+    height: 58px;
+    display: block;
+    border-radius: 50%;
+    border: 1px solid #ececec;
+}
+
+.avatar_cell .van-cell__right-icon {
+    line-height: 60px;
+}
+
+.van-cell__title, .van-cell__value {
+    font-size: .9em;
+    color: #5c6875;
+}
+
+.van-cell__value,
+.glory_name {
+    color: #b1b1b1;
+}
+
+.safe-area .van-actionsheet__cancel {
+    padding-bottom: constant(safe-area-inset-bottom);
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+.aTag:first-child {
+    margin-left: 10px;
+}
+
+.aTag {
+    background-color: #a90101;
+    color: white;
+    font-size: .6em;
+    border-radius: 4px;
+    padding: 2px 5px;
+    margin-left: 3px;
+}

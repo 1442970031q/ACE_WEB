@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover" />
+    <title></title>
+    <link href="../../../content/css/base.css" rel="stylesheet" />
+    <link href="../../../content/css/vant.css" rel="stylesheet" />
+    <link href="../../../content/css/pages/center/child/my.feedback.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <div id="app">
+        <div id="app-head" class="fixed van-hairline--bottom" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+            <i id="app-back-button" class="iconfont iconzuo right-back"></i>
+            <div class="app-head-text" v-text="language.TITLE_TEXT"></div>
+        </div>
+        <div id="app-content" v-bind:style="{'paddingTop': (45 + statusbarHeight) + 'px'}">
+            <div v-if="isLoading" class="loading-box p50">
+                <van-loading color="black"></van-loading>
+                <p class="loading-text" v-text="language.LOADING_TEXT"></p>
+            </div>
+            <div v-else v-cloak>
+                <div v-if="pageModel.list.length === 0" class="none-data p50">
+                    <i class="iconfont iconkong"></i>
+                    <p class="none-data-text" v-text="language.NONE_DATA_TEXT">暫無數據</p>
+                </div>
+                <div v-else>
+                    <ul class="list">
+                        <li v-for="(item,index) in pageModel.list"
+                            v-bind:key="index">
+                            <div class="line clearfix">
+                                <span class="type_name" v-text="language.TYPE_TITLE + getTypeName(item)"></span>
+                                <span class="reply_state"
+                                      v-bind:class="[item.IsReplyed ? 'green' : 'red']"
+                                      v-text="item.IsReplyed ? language.TEXT_1 : language.TEXT_2"></span>
+                            </div>
+                            <div class="line text">
+                                <p v-text="item.Text"></p>
+                            </div>
+                            <div class="line images" v-if="item.ImageAddress_1 || item.ImageAddress_2 || item.ImageAddress_3">
+                                <div class="image" v-if="item.ImageAddress_1">
+                                    <img v-lazy="item.ImageAddress_1" @click="viewImage(item.ImageAddress_1)" />
+                                </div>
+                                <div class="image" v-if="item.ImageAddress_2">
+                                    <img v-lazy="item.ImageAddress_2" @click="viewImage(item.ImageAddress_2)" />
+                                </div>
+                                <div class="image" v-if="item.ImageAddress_3">
+                                    <img v-lazy="item.ImageAddress_3" @click="viewImage(item.ImageAddress_3)" />
+                                </div>
+                            </div>
+                            <div class="line reply" v-if="item.IsReplyed">
+                                <p class="title" v-text="language.MANAGER_TITLE"></p>
+                                <p class="content" v-text="item.Reply"></p>
+                            </div>
+                            <div class="line">
+                                <p class="time" v-text="item.CreateTime"></p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../../content/js/vue.js"></script>
+    <script src="../../../content/js/vant.min.js"></script>
+    <script src="../../../content/js/base.js"></script>
+    <script src="../../../content/js/pages/center/child/my.feedback.js"></script>
+</body>
+</html>

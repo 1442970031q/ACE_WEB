@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover" />
+    <title></title>
+    <link href="../../content/css/base.css" rel="stylesheet" />
+    <link href="../../content/css/vant.css" rel="stylesheet" />
+    <link href="../../content/css/pages/secondpage/ep.list.detail.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <div id="app">
+        <div id="app-head" class="fixed van-hairline--bottom" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+            <i id="app-back-button" class="iconfont iconzuo right-back"></i>
+            <div class="app-head-text" v-text="language.TITLE_TEXT"></div>
+        </div>
+        <div id="app-content" v-bind:style="{'paddingTop': (45 + statusbarHeight) + 'px'}">
+            <div v-if="isLoading" class="loading-box p50">
+                <van-loading color="black"></van-loading>
+                <p class="loading-text" v-text="language.LOADING_TEXT"></p>
+            </div>
+            <div v-else v-cloak>
+                <div class="block top">
+                    <p class="title" v-text="language.BLOCK_1_TITLE">賣家信息</p>
+                    <img v-lazy="pageModel.Seller.Avatar" class="avatar" />
+                    <div class="fn" v-text="pageModel.Seller.FlowNumber"></div>
+                </div>
+                <div class="block sell">
+                    <p class="title" v-text="language.BLOCK_2_TITLE">挂賣信息</p>
+                    <div class="content">
+                        <p class="number">
+                            <span class="value" v-text="numberFormat(pageModel.EPAmount, 0)"></span>
+                            <sub>EP</sub>
+                        </p>
+                        <div class="bottom clearfix">
+                            <div class="support_pay">
+                                <img v-if="pageModel.Seller.OfflinePay.BankCardNumber || pageModel.ReceiveType === null"
+                                     src="../../content/img/pays/yl_pay.png" 
+                                     class="pay_icon" />
+                                <img v-if="pageModel.Seller.Usdt.Address"
+                                     src="../../content/img/pays/usdt_pay.png" 
+                                     class="pay_icon"/>
+                            </div>
+                            <p class="time" v-text="pageModel.CreateTime"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="block np">
+                    <van-cell-group>
+                        <van-cell v-bind:title="language.CELL_1" v-bind:value="pageModel.LimitPayment + language.TIME_M"></van-cell>
+                        <van-cell v-bind:title="language.CELL_2" v-bind:value="pageModel.LimitConfirm + language.TIME_M"></van-cell>
+                    </van-cell-group>
+                </div>
+                <button v-if="pageModel.Status === 1"
+                        class="confirm_button full"
+                        @click="confirmTran"
+                        v-text="language.CONFIRM_BUTTON_TEXT">
+                    確認購買
+                </button>
+                <van-dialog v-model="isShowPasswordInput"
+                            v-bind:title="language.PASSWORD_POPUP_TITLE_TEXT"
+                            v-bind:before-close="checkPassword"
+                            show-cancel-button>
+                    <input type="password"
+                           ref="passwordBox"
+                           maxlength="16"
+                           class="confirm_input"
+                           v-model="form.password"
+                           v-bind:placeholder="language.PASSWORD_INPUT_PLACEHOLDER" />
+                </van-dialog>
+            </div>
+        </div>
+    </div>
+    <script src="../../content/js/vue.js"></script>
+    <script src="../../content/js/vant.min.js"></script>
+    <script src="../../content/js/base.js"></script>
+    <script src="../../content/js/pages/secondpage/ep.list.detail.js"></script>
+</body>
+</html>

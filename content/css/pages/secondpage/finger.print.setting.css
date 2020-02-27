@@ -1,0 +1,59 @@
+﻿html, body {
+    background-color: white;
+}
+
+.support {
+    padding-top: 30%;
+    width: 80%;
+    margin: 0 auto;
+}
+
+    .support .title {
+        font-size: 1.5em;
+        text-align: center;
+        height: 25px;
+        line-height: 25px;
+        font-weight: bold;
+    }
+
+    .support .des {
+        text-align: center;
+        display: block;
+        margin: 0 auto;
+        margin-top: 10px;
+        font-size: .9em;
+        width: 100%;
+        color: #7d7d7d;
+    }
+
+    .support .icon {
+        width: 150px;
+        display: block;
+        margin: 30px auto;
+    }
+
+    .support .confirm_button {
+        width: 100%;
+    }
+
+    .support.not .icon {
+        -webkit-filter: grayscale(100%);
+    }
+
+    .support .question {
+        text-align: center;
+        color: #068dfe;
+        font-size: .8em;
+    }
+
+.pwd_box {
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 45px;
+    background-color: #f9f9f9;
+    margin-top: 15px;
+}

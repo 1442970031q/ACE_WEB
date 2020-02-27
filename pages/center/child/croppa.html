@@ -1,0 +1,184 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover" />
+    <title></title>
+    <link href="../../../content/css/vant.css" rel="stylesheet" />
+    <link href="../../../content/css/base.css" rel="stylesheet" />
+    <link href="../../../content/css/vue-croppa.min.css" rel="stylesheet" />
+    <style>
+        html, body, #app {
+            height: 100%;
+            background-color: #000000;
+        }
+
+        #app-head {
+            background-color: #252525;
+            border-bottom: 0;
+        }
+
+            #app-head .right-back,
+            #app-head .app-head-text,
+            #app-head .submit-button,
+            #app-head .submit-button:active {
+                color: white;
+            }
+
+        #app-content {
+            height: calc(100% - 65px);
+        }
+
+        .center {
+            display: block;
+            margin: auto;
+            width: 302px;
+            height: 357px;
+            top: 0;
+            bottom: 0;
+            position: absolute;
+            left: 0;
+            right: 0;
+        }
+
+            .center .rotate {
+                text-align: center;
+                color: white;
+                display: block;
+                margin: 0 auto;
+                width: 35px;
+                height: 35px;
+                margin-top: 20px;
+                font-size: 2em;
+            }
+
+        .croppa-container {
+            background-color: transparent;
+            border: 1px solid #808080;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+    </style>
+    
+</head>
+<body>
+    <div id="app">
+        <div id="app-head" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+            <i id="app-back-button" class="iconfont iconzuo right-back"></i>
+            <p class="app-head-text" v-text="language.TITLE_TEXT">头像裁剪</p>
+            <button class="submit-button" @click="confirmUsed" v-text="language.BUTTON_1">使用</button>
+        </div>
+        <div id="app-content" v-cloak>
+            <div class="center">
+                <croppa v-model="myCroppa"
+                        placeholder=""
+                        v-bind:width="300"
+                        v-bind:height="300"
+                        v-bind:canvas-color="'default'"
+                        v-bind:accept="'image/*'"
+                        v-bind:file-size-limit="0"
+                        v-bind:zoom-speed="5"
+                        v-bind:disabled="false"
+                        v-bind:disable-drag-and-drop="false"
+                        v-bind:disable-click-to-choose="true"
+                        v-bind:disable-drag-to-move="false"
+                        v-bind:disable-scroll-to-zoom="false"
+                        v-bind:disable-rotation="false"
+                        v-bind:prevent-white-space="true"
+                        v-bind:reverse-scroll-to-zoom="false"
+                        v-bind:show-remove-button="false"
+                        v-bind:initial-image="fileName"></croppa>
+                <i class="rotate iconfont iconxuanzhuan" @click="rotateImage"></i>
+            </div>
+        </div>
+    </div>
+    <script src="../../../content/js/vue.js"></script>
+    <script src="../../../content/js/vant.min.js"></script>
+    <script src="../../../content/js/vue-croppa.min.js"></script>
+    <script src="../../../content/js/base.js"></script>
+    <script>
+        Vue.use(Croppa);
+
+        var _vue = new Vue({
+            el: '#app',
+            data: {
+                'currentUser': APP.GLOBAL.getUserModel(),
+                'myCroppa': {},
+                'fileName': APP.GLOBAL.queryString('fn'),
+                'statusbarHeight': 0,
+                'language': {}
+            },
+            methods: {
+                'rotateImage': function () {
+                    //每次旋转头像90°
+                    this.myCroppa.rotate(1);
+                },
+                'confirmUsed': function () {
+                    this.myCroppa.generateBlob(function (blob) {
+                        APP.GLOBAL.toastLoading(_vue.language.SAVE_TOAST);
+
+                        //创建文件对象
+                        var reader = new FileReader();
+                        reader.onload = _vue.loadComplete;
+                        reader.readAsDataURL(blob);
+                    }, 'image/jpeg', 0.75);
+                    //生成裁剪后的头像数据
+                },
+                'loadComplete': function (e) {
+                    var result = e.target.result.toString();
+                    var base64 = null;
+
+                    //根据头部信息判断格式并移除
+                    if (result.indexOf('data:image/jpeg') !== -1) {
+                        base64 = e.target.result.toString().replace('data:image/jpeg;base64,', '');
+                    } else if (result.indexOf('data:image/png') !== -1) {
+                        base64 = e.target.result.toString().replace('data:image/png;base64,', '');
+                    }
+
+                    var encode = encodeURIComponent(base64);
+                    APP.GLOBAL.ajax({
+                        url: APP.CONFIG.BASE_URL + 'UploadAvatar',
+                        data: {
+                            'base64': encode
+                        },
+                        timeout: 120000,
+                        success: function (result) {
+                            if (result.Error) {
+                                APP.GLOBAL.closeToastLoading();
+                                APP.GLOBAL.toastMsg(result.Msg);
+                                return;
+                            }
+
+                            //更新本地信息
+                            APP.GLOBAL.updateUserModel({
+                                'Avatar': result.Msg
+                            }, [{
+                                'pageName': 'profilePage',
+                                'actionName': '_vue.updateUserModel()'
+                            }, {
+                                'pageName': 'center.htmlPage',
+                                'actionName': '_vue.updateUserModel()'
+                            }]);
+
+                            APP.GLOBAL.toastMsg(_vue.SAVE_COMPLETE);
+                            APP.GLOBAL.closeWindow();
+                        }
+                    });
+                },
+                'changeLanguage': function () {
+                    LSE.install('croppa', function (lang) {
+                        Vue.set(_vue, 'language', lang);
+                    });
+                }
+            },
+            created: function () {
+                this.changeLanguage();
+
+                if (APP.CONFIG.IS_RUNTIME) {
+                    this.statusbarHeight = plus.navigator.getStatusbarHeight();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

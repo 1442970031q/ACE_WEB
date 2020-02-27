@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover" />
+    <title></title>
+    <link href="../../content/css/base.css" rel="stylesheet" />
+    <link href="../../content/css/vant.css" rel="stylesheet" />
+    <link href="../../content/css/pages/secondpage/ace.list.detail.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <div id="app">
+        <div id="app-head" class="fixed van-hairline--bottom" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+            <i id="app-back-button" class="iconfont iconzuo right-back"></i>
+            <div class="app-head-text" v-text="language.TITLE_TEXT"></div>
+        </div>
+        <div id="app-content" v-bind:style="{'paddingTop': (45 + statusbarHeight) + 'px'}">
+            <div v-if="isLoading" class="loading-box p50">
+                <van-loading color="black"></van-loading>
+                <p class="loading-text" v-text="language.LOADING_TEXT"></p>
+            </div>
+            <div v-else v-cloak>
+                <div class="block top">
+                    <p class="title" v-text="language.BLOCK_1_TITLE">賣家信息</p>
+                    <img v-lazy="pageModel.User.Avatar" class="avatar" />
+                    <div class="fn" v-text="pageModel.User.FlowNumber"></div>
+                </div>
+                <div class="block sell">
+                    <p class="title" v-text="language.BLOCK_2_TITLE">挂賣信息</p>
+                    <div class="content">
+                        <ul>
+                            <li>
+                                <p class="value">
+                                    <span v-text="numberFormat(pageModel.ReadonlyStockCount, 0)"></span>
+                                    <sup>ACE</sup>
+                                </p>
+                                <p class="text" v-text="language.BLOCK_2_LI_1">挂賣數量</p>
+                            </li>
+                            <li>
+                                <p class="value">
+                                    <span v-text="numberFormat(pageModel.SinglePrice, 3)"></span>
+                                    <sup>＄</sup>
+                                </p>
+                                <p class="text" v-text="language.BLOCK_2_LI_2">單價</p>
+                            </li>
+                            <li>
+                                <p class="value">
+                                    <span v-text="numberFormat(pageModel.ReadonlyStockCount * pageModel.SinglePrice, 3)"></span>
+                                    <sup>＄</sup>
+                                </p>
+                                <p class="text" v-text="language.BLOCK_2_LI_3">價值</p>
+                            </li>
+                        </ul>
+                        <p class="time" v-text="pageModel.CreateTime"></p>
+                    </div>
+                </div>
+                <div class="block list">
+                    <p class="title" v-text="language.BLOCK_3_TITLE">買家列表</p>
+                    <div class="content">
+                        <div v-if="isLoadBuyList" class="loading-box pd-10">
+                            <van-loading color="black"></van-loading>
+                            <p class="loading-text" v-text="language.LOADING_TEXT"></p>
+                        </div>
+                        <table v-else class="table table-hover table-light">
+                            <thead>
+                                <tr>
+                                    <th> # </th>
+                                    <th class="text-center" v-text="language.TABLE_TH_1">買家</th>
+                                    <th class="text-center" v-text="language.TABLE_TH_2">成交價</th>
+                                    <th class="text-center" v-text="language.TABLE_TH_3">數量</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="(item,index) in pageModel.buyList"
+                                    v-bind:key="index">
+                                    <td v-text="index + 1"></td>
+                                    <td class="text-center" v-text="item.User.NickName + '(' + item.User.FlowNumber + ')'"></td>
+                                    <td class="text-center" v-text="numberFormat(item.SinglePrice, 3)"></td>
+                                    <td class="text-center" v-text="numberFormat(item.AceAmount, 0)"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../content/js/vue.js"></script>
+    <script src="../../content/js/vant.min.js"></script>
+    <script src="../../content/js/base.js"></script>
+    <script src="../../content/js/pages/secondpage/ace.list.detail.js"></script>
+</body>
+</html>

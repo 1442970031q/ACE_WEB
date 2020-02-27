@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title></title>
+    <link href="../../../content/css/vant.css" rel="stylesheet" />
+    <link href="../../../content/css/base.css" rel="stylesheet" />
+    <link href="../../../content/css/pages/center/google/bind.google.css" rel="stylesheet" />
+    <script src="html5plus://ready"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="bg"></div>
+        <div id="app-head" class="fixed" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+            <i id="app-back-button" class="iconfont iconzuo right-back"></i>
+            <div class="app-head-text" v-text="language.TITLE_TEXT"></div>
+        </div>
+        <div id="app-content" v-bind:style="{'paddingTop': (45 + statusbarHeight) + 'px'}">
+            <div class="input_group">
+                <div class="warn" v-text="language.WARN_TEXT">請將下面的密鑰輸入到“身份驗證器”中</div>
+                <div class="input_line van-hairline--bottom">
+                    <span class="input_text" v-text="language.INPUT_TEXT_1">谷歌密鑰</span>
+                    <input id="codeForAnd"
+                           type="text"
+                           class="input_control r-1"
+                           readonly
+                           v-bind:value="getActiveCode('and')" />
+                    <button class="arrow iconfont iconcopy big"
+                            data-clipboard-target="#codeForAnd"></button>
+                </div>
+                <div class="input_line">
+                    <span class="input_text" v-text="language.INPUT_TEXT_3">谷歌密鑰</span>
+                    <input id="codeForIOS"
+                           type="text"
+                           readonly
+                           class="input_control r-1"
+                           v-bind:value="getActiveCode('ios')" />
+                    <button class="arrow iconfont iconcopy big"
+                            data-clipboard-target="#codeForIOS"></button>
+                </div>
+            </div>
+            <div class="input_group">
+                <div class="warn" v-text="language.TIP_TEXT">在下方輸入“身份驗證器”對應賬戶名的驗證碼</div>
+                <div class="input_line">
+                    <span class="input_text" v-text="language.INPUT_TEXT_2">谷歌驗證碼</span>
+                    <input class="input_control"
+                           type="number"
+                           v-bind:placeholder="language.INPUT_PLACEHOLDER_2"
+                           v-model="form.gCode" />
+                </div>
+            </div>
+            <button class="confirm_button mt-15"
+                    v-text="language.BUTTON_TEXT"
+                    @click="checkData">
+                我已綁定，并開始驗證
+            </button>
+            <div class="input_group_1">
+                <p class="title" v-text="language.FLOW_PATH_TITLE"></p>
+                <div class="content">
+                    <p class="line_text" v-text="language.FLOW_PATH_CONTENT_1">
+                    </p>
+                    <p class="line_text" v-text="language.FLOW_PATH_CONTENT_2">
+                    </p>
+                    <p class="line_text" v-text="language.FLOW_PATH_CONTENT_3">
+                    </p>
+                    <p class="line_text" v-text="language.FLOW_PATH_CONTENT_4">
+                    </p>
+                    <p class="line_text" v-text="language.FLOW_PATH_CONTENT_5">
+                    </p>
+                    <p class="line_text" v-text="language.FLOW_PATH_CONTENT_6">
+                    </p>
+                    <p class="line_text" v-text="language.FLOW_PATH_CONTENT_7">
+                    </p>
+                    <p class="line_text" v-text="language.FLOW_PATH_CONTENT_8">
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../../content/js/vue.js"></script>
+    <script src="../../../content/js/vant.min.js"></script>
+    <script src="../../../content/js/base.js"></script>
+    <script src="../../../content/js/clipboard.min.js"></script>
+    <script>
+        var _vue = new Vue({
+            el: '#app',
+            data: {
+                'currentUser': APP.GLOBAL.getUserModel(),
+                'request': {
+                    'key': APP.GLOBAL.queryString('ac')
+                },
+                'form': {
+                    'gCode': ''
+                },
+                'language': {},
+                'statusbarHeight': 20
+            },
+            methods: {
+                'getActiveCode': function (t) {
+                    if (!this.request.key) return '';
+
+                    if (t === 'ios') {
+                        return this.request.key.replace(/=/g, '');
+                    } else {
+                        return this.request.key;
+                    }
+                },
+                'checkData': function () {
+                    if (!this.form.gCode) {
+                        APP.GLOBAL.toastMsg(this.language.ERROR_1);
+                    } else if (this.form.gCode.length !== 6) {
+                        APP.GLOBAL.toastMsg(this.language.ERROR_2);
+                    } else {
+                        this.doSubmitAjax();
+                    }
+                },
+                'doSubmitAjax': function () {
+                    APP.GLOBAL.toastLoading({ 'message': this.language.TOAST_TEXT });
+
+                    APP.GLOBAL.ajax({
+                        url: APP.CONFIG.BASE_URL + 'VerifyGCode',
+                        data: this.form,
+                        success: function (result) {
+                            if (result.Error) {
+                                APP.GLOBAL.closeToastLoading();
+                                APP.GLOBAL.toastMsg(result.Msg);
+                                return;
+                            }
+
+                            APP.GLOBAL.updateUserModel({
+                                'IsBindGAuthorize': true
+                            }, [{
+                                'pageName': 'center.htmlPage',
+                                'actionName': '_vue.updateInfo()'
+                            }]);
+
+                            APP.GLOBAL.gotoNewWindow('bind.google.successPage', 'bind.google.success', {
+                                'openCallback': function () {
+                                    APP.GLOBAL.closeWindow('none');
+                                }
+                            });
+                        }
+                    });
+                },
+                'changeLanguage': function () {
+                    LSE.install('bind_google', function (lang) {
+                        Vue.set(_vue, 'language', lang);
+                    });
+                }
+            },
+            created: function () {
+                if (APP.CONFIG.IS_RUNTIME) {
+                    this.statusbarHeight = plus.navigator.getStatusbarHeight();
+                }
+
+                this.changeLanguage();
+            },
+            mounted: function () {
+                this.$nextTick(function () {
+                    var clipboardDemos = new ClipboardJS('.arrow');
+                    clipboardDemos.on('success', function (e) {
+                        e.clearSelection();
+                        APP.GLOBAL.toastMsg(_vue.language.COPY_TOAST_TEXT);
+                    });
+
+                    clipboardDemos.on('error', function (e) {
+                        APP.GLOBAL.toastMsg(_vue.language.COPY_TOAST_FAIL);
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>

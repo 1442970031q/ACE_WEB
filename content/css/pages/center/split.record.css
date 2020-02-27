@@ -1,0 +1,70 @@
+﻿.list_content {
+    width: calc(100% - 20px);
+    margin: 0 auto;
+}
+
+    .list_content ul {
+        padding-bottom: 10px;
+    }
+
+        .list_content ul li {
+            margin-bottom: 5px;
+        }
+
+            .list_content ul li:last-child {
+                margin-bottom: 0;
+            }
+
+            .list_content ul li .info_content {
+                padding: 10px;
+                padding-top: 15px;
+                border-radius: 4px;
+                overflow: hidden;
+                background-color: white;
+            }
+
+                .list_content ul li .info_content .line {
+                }
+
+                    .list_content ul li .info_content .line.first .bl.middle {
+                        font-size: 1.5em;
+                    }
+
+                    .list_content ul li .info_content .line.first .bl.after .number {
+                        font-weight: bold;
+                        color: red;
+                    }
+
+                    .list_content ul li .info_content .line.last {
+                        padding-top: 10px;
+                    }
+
+                    .list_content ul li .info_content .line .bl {
+                        float: left;
+                        width: 33.3333%;
+                        text-align: center;
+                    }
+
+                        .list_content ul li .info_content .line .bl .number {
+                            line-height: 30px;
+                            font-size: 1.3em;
+                        }
+
+                        .list_content ul li .info_content .line .bl .text {
+                            line-height: 20px;
+                            font-size: .75em;
+                            color: #adadad;
+                        }
+
+                    .list_content ul li .info_content .line:first-child {
+                        padding-bottom: 10px;
+                        border-bottom: 1px solid #f9f9f9;
+                    }
+
+            .list_content ul li .time {
+                text-align: center;
+                font-size: .8em;
+                padding: 15px;
+                color: #9a9a9a;
+                background-color: #f3f3f3;
+            }

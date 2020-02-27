@@ -1,0 +1,25 @@
+﻿.input_group_1 {
+    width: calc(100% - 20px);
+    margin: 0 auto;
+    margin: 10px auto;
+    border-radius: 4px;
+    overflow: hidden;
+    color: #b38e00;
+    background: #ffe790;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+    .input_group_1 .title {
+        font-size: 1em;
+        margin-bottom: 5px;
+        text-align: left;
+        padding: 5px 0;
+    }
+
+    .input_group_1 .content .line_text {
+        font-size: 0.8em;
+        margin-top: 5px;
+        min-height: 20px;
+        line-height: 20px;
+    }

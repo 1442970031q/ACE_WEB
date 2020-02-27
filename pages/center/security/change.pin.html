@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover" />
+    <title></title>
+    <link href="../../../content/css/base.css" rel="stylesheet" />
+    <link href="../../../content/css/vant.css" rel="stylesheet" />
+    <link href="../../../content/css/pages/center/security/change.pin.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <div id="app">
+        <div id="app-head" class="van-hairline--bottom" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+            <i id="app-back-button" class="iconfont iconzuo right-back"></i>
+            <div class="app-head-text" v-text="language.TITLE_TEXT"></div>
+        </div>
+        <div id="app-content">
+            <div v-if="isLoadingAnswer" class="loading-box">
+                <van-loading color="black"></van-loading>
+                <p class="loading-text" v-text="language.LOADING"></p>
+            </div>
+            <div v-else v-cloak>
+                <div class="warn text-left" v-if="request.fp == 'change'">
+                    <b>
+                        <i class="iconfont icon-warning-line"></i>
+                        <span v-text="language.WARNING_TITLE"></span>
+                    </b>
+                    <p v-text="language.WARNING_TEXT"></p>
+                </div>
+                <div class="input_content">
+                    <b class="rule" v-text="language.RULE_TITLE"></b>
+                    <ul class="rules">
+                        <li class="rule_item" v-text="language.RULE_ITEM_1"></li>
+                        <li class="rule_item" v-text="language.RULE_ITEM_2"></li>
+                    </ul>
+                </div>
+                <div class="input_group">
+                    <div class="input_line van-hairline--bottom">
+                        <span class="input_text" v-text="language.CURRENT_TRANSFER_PWD">當前交易密碼</span>
+                        <input type="password" class="input_control" v-model="form.oldPassword" maxlength="16" v-bind:placeholder="language.PLEASE_INPUT_CURRENT_TRANSFER_PWD" />
+                    </div>
+                    <div class="input_line van-hairline--bottom">
+                        <span class="input_text" v-text="language.NEW_TRANSFER_PWD">新的交易密碼</span>
+                        <input type="password" class="input_control" v-model="form.password" maxlength="16" v-bind:placeholder="language.PLS_IPT_NEW_PWD" />
+                    </div>
+                    <div class="input_line">
+                        <span class="input_text" v-text="language.CONFIRM_TRANSFER_PWD">重複交易密碼</span>
+                        <input type="password" class="input_control" v-model="confirmPassword" maxlength="16" v-bind:placeholder="language.CONFIRM_NEW_PWD" />
+                    </div>
+                </div>
+                <div class="input_group border">
+                    <div class="input_line full">
+                        <p class="text_line" v-text="questionDisplay"></p>
+                        <input type="text" class="full_control" v-model="form.answer" v-bind:placeholder="language.INPUT_PLACEHOLDER_1" maxlength="10" />
+                    </div>
+                </div>
+                <p class="warn mt-10 " v-text="language.INPUT_TEXT_6"></p>
+                <div class="input_group border">
+                    <div class="input_line full">
+                        <input type="text" class="full_control" v-model="form.idcard" v-bind:placeholder="language.INPUT_PLACEHOLDER_2"  />
+                    </div>
+                </div>
+                <button class="confirm_button" @click="checkData" v-text="language.CONFIRM_MODIFY">確認更改</button>
+            </div>
+        </div>
+    </div>
+    <script src="../../../content/js/vue.js"></script>
+    <script src="../../../content/js/vant.min.js"></script>
+    <script src="../../../content/js/base.js"></script>
+    <script src="../../../content/js/pages/center/security/change.pin.js"></script>
+</body>
+</html>

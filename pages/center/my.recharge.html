@@ -1,0 +1,72 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title></title>
+    <link href="../../content/css/vant.css" rel="stylesheet" />
+    <link href="../../content/css/base.css" rel="stylesheet" />
+    <link href="../../content/css/pages/center/my.recharge.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <div id="app">
+        <div class="bg"></div>
+        <div id="app-head" class="fixed van-hairline--bottom" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+            <i id="app-back-button" class="iconfont iconzuo right-back"></i>
+            <div class="app-head-text" v-text="language.TITLE_TEXT"></div>
+        </div>
+        <div id="app-content" v-bind:style="{'paddingTop': (45 + statusbarHeight) + 'px'}">
+            <div v-if="isLoading" class="loading-box">
+                <van-loading color="black"></van-loading>
+                <p class="loading-text" v-text="language.LOADING_TEXT">正在載入...</p>
+            </div>
+            <div v-else v-cloak>
+                <div v-if="pageModel.list.length === 0" class="none-data p50">
+                    <i class="iconfont iconwu"></i>
+                    <p class="none-data-text" v-text="language.NONE_DATA">暫無反饋信息</p>
+                </div>
+                <div v-else>
+                    <ul class="list">
+                        <li v-for="(item,index) in pageModel.list"
+                            v-bind:key="index">
+                            <div class="line first clearfix">
+                                <span class="type_name" v-text="language.CAPTION_1 + numberFormat(item.UserInputAmount, 2)"></span>
+                                <span class="reply_state yellow" v-if="item.Status === 1" v-text="item.StatusName"></span>
+                                <span class="reply_state green" v-else-if="item.Status === 2" v-text="item.StatusName"></span>
+                                <span class="reply_state red" v-else-if="item.Status === 4" v-text="item.StatusName"></span>
+                            </div>
+                            <div class="line hash" v-if="item.TxHash">
+                                <p v-text="language.CAPTION_2 + item.TxHash"></p>
+                            </div>
+                            <div class="line images" v-if="item.ImageAddress">
+                                <div class="image">
+                                    <img v-lazy="item.ImageAddress" @click="viewImage(item.ImageAddress)" />
+                                </div>
+                            </div>
+                            <div class="line reject" v-if="item.Status === 4">
+                                <p v-text="language.CAPTION_3 +item.RejectReason"></p>
+                            </div>
+                            <div class="line clearfix">
+                                <span v-if="item.Status === 2" class="amount" v-text="'+' + item.RealRP + ' RP'"></span>
+                                <span class="time" v-text="item.CreateTime"></span>
+                            </div>
+                        </li>
+                    </ul>
+                    <div v-if="pageModel.isLoadMore" class="load_more clearfix">
+                        <van-loading color="black"></van-loading>
+                        <span class="load_text" v-text="language.LOADING_TEXT">正在載入...</span>
+                    </div>
+                    <div v-if="pageModel.isLoadComplete" class="load_more_complete">
+                        <span class="load_text" v-text="language.NONE_MORE_DATA">沒有更多的數據了...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../content/js/vue.js"></script>
+    <script src="../../content/js/vant.min.js"></script>
+    <script src="../../content/js/base.js"></script>
+    <script src="../../content/js/pages/center/my.recharge.js"></script>
+</body>
+</html>

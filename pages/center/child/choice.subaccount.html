@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover" />
+    <title></title>
+    <link href="../../../content/css/base.css" rel="stylesheet" />
+    <link href="../../../content/css/vant.css" rel="stylesheet" />
+    <link href="../../../content/css/pages/center/child/choice.subaccount.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <div id="app">
+        <div id="app-head" class="fixed" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+            <i id="app-back-button" class="iconfont iconzuo right-back"></i>
+            <div class="app-head-text" v-text="language.TITLE_TEXT">選擇子賬戶</div>
+            <button class="submit-button" @click="choiceMain" v-text="language.SWITCH_BUTTON_TEXT"></button>
+        </div>
+        <div id="app-content" v-bind:style="{'paddingTop': (45 + statusbarHeight) + 'px'}">
+            <div v-if="isLoading" class="loading-box p50">
+                <van-loading color="black"></van-loading>
+                <p class="loading-text" v-text="language.LOADING_TEXT"></p>
+            </div>
+            <div v-else v-cloak>
+                <form action="/">
+                    <van-search v-bind:style="{'top': (45 + statusbarHeight) + 'px'}"
+                                v-model="searchKey"
+                                v-bind:placeholder="language.SEARCH_PLACEHOLDER"
+                                show-action
+                                @search="onSearch">
+                        <div slot="action" @click="onSearch" v-text="language.SEARCH_BUTTON"></div>
+                    </van-search>
+                </form>
+                <div v-if="pageModel.list.length === 0" class="none-data p50">
+                    <i class="iconfont iconkong"></i>
+                    <p class="none-data-text" v-text="language.NONE_DATA"></p>
+                </div>
+                <div v-else class="list_content">
+                    <div v-if="isSearch" class="loading-box">
+                        <van-loading color="black"></van-loading>
+                        <p class="loading-text" v-text="language.SEARCHING_TEXT"></p>
+                    </div>
+                    <div v-else>
+                        <ul class="list_items">
+                            <li class="list_item clearfix"
+                                v-for="(item,index) in pageModel.list"
+                                v-bind:key="index"
+                                @click="choiceItem(item)">
+                                <div class="list_middle">
+                                    <p class="fn" v-text="'ID ' + item.FlowNumber"></p>
+                                    <p class="mn" v-text="language.MEMBER_TEXT + item.MemberNo"></p>
+                                </div>
+                                <div class="list_right">
+                                    <p class="number" v-text="numberFormat(item.AceAmount, 0)"></p>
+                                    <p class="text">ACE</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <div v-if="pageModel.isLoadMore" class="load_more clearfix">
+                            <van-loading color="black"></van-loading>
+                            <span class="load_text" v-text="language.LOADING_TEXT"></span>
+                        </div>
+                        <div v-if="pageModel.isLoadComplete" class="load_more_complete">
+                            <span class="load_text" v-text="language.NOMORE"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../../content/js/vue.js"></script>
+    <script src="../../../content/js/vant.min.js"></script>
+    <script src="../../../content/js/base.js"></script>
+    <script src="../../../content/js/pages/center/child/choice.subaccount.js"></script>
+</body>
+</html>

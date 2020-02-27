@@ -1,0 +1,62 @@
+﻿.van-loading {
+    width: 60px;
+    height: 60px;
+}
+
+.van-loading__circular circle {
+    stroke-width: 1;
+}
+
+.list {
+    width: calc(100% - 20px);
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+    .list li {
+        padding: 10px;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        background-color: white;
+        border-radius: 4px;
+        margin-bottom: 10px;
+    }
+
+        .list li .line {
+            height: 25px;
+            line-height: 25px;
+            font-size: .9em;
+        }
+
+            .list li .line .text {
+                float: left;
+                font-weight: bold;
+            }
+
+                .list li .line .text.red {
+                    color: red;
+                }
+
+                .list li .line .text.green {
+                    color: green;
+                }
+
+            .list li .line .value {
+                float: right;
+                font-weight: bold;
+            }
+
+            .list li .line .time {
+                color: #a2a2a2;
+                font-weight: normal;
+                font-size: .8em;
+            }
+
+            .list li .line.remark {
+                margin-top: 5px;
+                font-size: .7em;
+                background-color: #f9f9f9;
+                padding: 0 10px;
+                color: #797979;
+            }

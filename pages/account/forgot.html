@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover" />
+    <title></title>
+    <link href="../../content/css/base.css" rel="stylesheet" />
+    <link href="../../content/css/vant.css" rel="stylesheet" />
+    <link href="../../content/css/pages/account/forgot.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <div id="app">
+        <div id="app-head" class="van-hairline--bottom" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+            <i id="app-back-button" class="iconfont iconzuo right-back"></i>
+            <div class="app-head-text" v-text="language.TITLE_TEXT"></div>
+        </div>
+        <div id="app-content">
+            <div class="text_content">
+                <p class="title" v-text="language.CONTENT_TITLE"></p>
+                <p class="line" v-text="language.CONTENT_TEXT"></p>
+            </div>
+            <div class="input_group">
+                <div class="input_line van-hairline--bottom">
+                    <span class="input_text" v-text="language.INPUT_TEXT_1"></span>
+                    <input type="text" class="input_control" v-model="form.account" v-bind:placeholder="language.INPUT_PLACEHOLDER_1" maxlength="15" />
+                </div>
+                <div class="input_line">
+                    <span class="input_text" v-text="language.INPUT_TEXT_2"></span>
+                    <div class="input_control">
+                        <div class="choice_block left"
+                             v-bind:class="{ 'active': form.changeType == 1 }"
+                             @click="form.changeType=1"
+                             v-text="language.CHECK_1"></div>
+                        <div class="choice_block right"
+                             v-bind:class="{ 'active': form.changeType == 2 }"
+                             @click="form.changeType=2"
+                             v-text="language.CHECK_2"></div>
+                    </div>
+                </div>
+            </div>
+            <button class="confirm_button" @click="nextStep" v-text="language.BUTTON_1"></button>
+        </div>
+    </div>
+    <script src="../../content/js/vue.js"></script>
+    <script src="../../content/js/vant.min.js"></script>
+    <script src="../../content/js/base.js"></script>
+    <script src="../../content/js/pages/account/forgot.js"></script>
+</body>
+</html>

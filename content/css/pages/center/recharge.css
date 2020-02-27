@@ -1,0 +1,140 @@
+﻿html, body {
+    background-color: #4cadff;
+    background-image: url('../../../img/recharge/recharge_top_bg.png');
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    height: 100%;
+    overflow: hidden;
+}
+
+.bg {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-image: url('../../../img/recharge/recharge_bottom_bg.png');
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+}
+
+#app {
+    height: 100%;
+}
+
+    #app #app-head {
+        background: none;
+        border-bottom: 0;
+    }
+
+#app-head .right-back,
+#app-head .app-head-text,
+#app-head .submit-button {
+    color: white;
+}
+
+#app #app-content {
+    height: calc(100% - 65px);
+    overflow: hidden;
+}
+
+.van-loading--black circle {
+    stroke: white !important;
+}
+
+.loading-box .loading-text {
+    color: white !important;
+}
+
+.qr_box {
+    background-color: white;
+    border-radius: 4px;
+    padding: 15px;
+    width: 80%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    height: 325px;
+    box-shadow: 0 0 15px #0063b5;
+}
+
+    .qr_box .usdt {
+        display: block;
+        width: 60px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        margin: auto;
+        top: -50px;
+        background-color: white;
+        border-radius: 50%;
+        border: 4px solid #f5f5f5;
+        padding: 10px;
+    }
+
+    .qr_box .caption {
+        width: 90%;
+        margin: 0 auto;
+        text-align: center;
+        margin-top: 40px;
+        font-weight: bold;
+        color: #333;
+        font-size: 1.2em;
+    }
+
+    .qr_box .qr {
+        width: 200px;
+        height: 200px;
+        margin: 0 auto;
+        display: block;
+        margin-top: 15px;
+    }
+
+    .qr_box .address {
+        width: 95%;
+        margin: 0 auto;
+        text-align: center;
+        word-break: break-all;
+        margin-top: 15px;
+        font-size: .9em;
+    }
+
+    .qr_box .actions {
+        margin-top: 15px;
+        text-align: center;
+    }
+
+        .qr_box .actions .van-button--info {
+            background-color: #068dfe;
+            padding: 0 15px;
+            color: white;
+            margin: 0 10px;
+        }
+
+.bottom_buttons {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    justify-content: center;
+    display: flex;
+    font-size: .9em;
+}
+
+    .bottom_buttons .button {
+        color: white;
+        width: 180px;
+        text-shadow: 0 0 10px #0056f5;
+        height: 40px;
+        line-height: 40px;
+    }
+
+        .bottom_buttons .button:active {
+            text-shadow: 0 0 20px #000000;
+        }

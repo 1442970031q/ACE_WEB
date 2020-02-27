@@ -1,0 +1,19 @@
+{
+  "login": {
+    "DES_TEXT": "Sign in to your account",
+    "INPUT_TEXT_1": "Please enter your ID",
+    "INPUT_TEXT_2": "Please enter your password",
+    "MIDDLE_TEXT_1": "Remember me",
+    "MIDDLE_TEXT_2": "Forgot passowrd?",
+    "LOGIN_TEXT": "Login",
+    "ERROR_1": "ID cannot be blank",
+    "ERROR_2": "Password cannot be blank",
+    "ERROR_3": "Password at least 6 characters",
+    "CONFIRM_TITLE": "Remove record",
+    "CONFIRM_TEXT": "Do you really want to remove the record of this account?",
+    "NONE_LOCAL_TEXT": "No account record",
+    "CHANGE_LANGUAGE": "Language",
+    "CONFIRM_BUTTON": "Yes",
+    "CANCEL_BUTTON": "No"
+  }
+}

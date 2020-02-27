@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover" />
+    <title></title>
+    <link href="../../content/css/base.css" rel="stylesheet" />
+    <link href="../../content/css/vant.css" rel="stylesheet" />
+    <link href="../../content/css/pages/center/sell.ace.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <div id="app">
+        <div id="app-head" class="fixed" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+            <i id="app-back-button" class="iconfont iconzuo right-back"></i>
+            <div class="app-head-text" v-text="language.TITLE_TEXT">出售ACE</div>
+        </div>
+        <div id="app-content" v-bind:style="{'paddingTop': (45 + statusbarHeight) + 'px'}">
+            <div v-if="isLoading" class="loading-box p50">
+                <van-loading color="black"></van-loading>
+                <p class="loading-text" v-text="language.LOADING_TEXT"></p>
+            </div>
+            <div v-else v-cloak>
+                <div class="sell_info">
+                    <ul>
+                        <li>
+                            <p class="value" v-text="numberFormat(display.currentACECount,0)"></p>
+                            <p class="text" v-text="language.DETAIL_ITEM_1">ACE數量</p>
+                        </li>
+                        <li>
+                            <p class="value" v-text="currentUser.CurrentStockPrice"></p>
+                            <p class="text" v-text="language.DETAIL_ITEM_2">實時價格</p>
+                        </li>
+                        <li>
+                            <p class="value" v-text="display.dollarDisplay"></p>
+                            <p class="text" v-text="language.DETAIL_ITEM_3">約價值</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="input_group">
+                    <div class="input_line van-hairline--bottom">
+                        <span class="input_text" v-text="language.INPUT_TEXT_1">選擇賬戶</span>
+                        <div class="input_control r-1"
+                             @click="gotoChoiceSubaccount"
+                             v-text="form.sonId ? display.accountDisplay : language.ACCOUNT_TYPE"></div>
+                        <i class="iconfont iconjiantou arrow"></i>
+                    </div>
+                    <div class="input_line">
+                        <span class="input_text" v-text="language.INPUT_TEXT_2">出售數量</span>
+                        <input type="tel" class="input_control" v-model="form.count" v-bind:placeholder="language.INPUT_PLACEHOLDER_2" maxlength="6" />
+                    </div>
+                </div>
+                <div class="input_group border">
+                    <div class="input_line full">
+                        <p class="text_line" v-text="display.questionDisplay"></p>
+                        <input type="text" class="full_control" v-model="form.answer" v-bind:placeholder="language.INPUT_PLACEHOLDER_4" maxlength="30" />
+                    </div>
+                </div>
+                <div class="input_group">
+                    <div class="input_line van-hairline--bottom">
+                        <span class="input_text" v-text="language.INPUT_TEXT_5">證件號碼</span>
+                        <input type="text" class="input_control" v-model="form.idcard" v-bind:placeholder="language.INPUT_PLACEHOLDER_5" maxlength="25" />
+                    </div>
+                    <div class="input_line van-hairline--bottom">
+                        <span class="input_text" v-text="language.INPUT_TEXT_3">交易密碼</span>
+                        <input type="password" class="input_control" v-model="form.password" v-bind:placeholder="language.INPUT_PLACEHOLDER_3" maxlength="16" />
+                    </div>
+                    <div class="input_line">
+                        <span class="input_text" v-text="language.INPUT_TEXT_6">谷歌驗證碼</span>
+                        <input type="tel" 
+                               class="input_control" 
+                               v-model="form.gCode" 
+                               v-bind:placeholder="language.INPUT_PLACEHOLDER_6" 
+                               maxlength="6" />
+                    </div>
+                </div>
+                <button class="confirm_button" v-text="language.BUTTON_1" @click="checkData">確認出售</button>
+            </div>
+        </div>
+    </div>
+    <script src="../../content/js/vue.js"></script>
+    <script src="../../content/js/vant.min.js"></script>
+    <script src="../../content/js/base.js"></script>
+    <script src="../../content/js/pages/center/sell.ace.js"></script>
+</body>
+</html>

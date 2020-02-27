@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover" />
+    <title>子賬戶管理</title>
+    <link href="../../content/css/base.css" rel="stylesheet" />
+    <link href="../../content/css/vant.css" rel="stylesheet" />
+    <link href="../../content/css/pages/center/sub.account.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="app">
+        <div id="app-head" class="fixed van-hairline--bottom" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+            <i id="app-back-button" class="iconfont iconzuo right-back"></i>
+            <div class="app-head-text" v-text="language.TITLE_TEXT">子賬戶管理</div>
+            <i v-show="!isLoading" class="iconfont iconjia submit-button" @click="createAccount"></i>
+        </div>
+        <div id="app-content" v-bind:style="{'paddingTop': (45 + statusbarHeight) + 'px'}">
+            <div v-if="isLoading" class="loading-box p50">
+                <van-loading color="black"></van-loading>
+                <p class="loading-text" v-text="language.LOADING_TEXT">正在載入...</p>
+            </div>
+            <div v-else v-cloak>
+                <div v-if="pageModel.list.length == 0" class="none-data p50">
+                    <i class="iconfont iconkong"></i>
+                    <p class="none-data-text" v-text="language.NONE_DATA">暫無子賬戶</p>
+                </div>
+                <div v-else class="list_content" v-bind:class="{'safe': APP.CONFIG.IsSafeArea()}">
+                    <ul class="list">
+                        <li v-for="(item,index) in pageModel.list"
+                            v-bind:key="index">
+                            <div class="top clearfix">
+                                <img v-lazy="item.AvatarImage" class="avatar" />
+                                <div class="top_right">
+                                    <p class="fn" v-text="item.MemberNo"></p>
+                                    <p class="fn small" v-text="'ID：' + item.FlowNumber"></p>
+                                </div>
+                            </div>
+                            <div class="middle">
+                                <ul class="info">
+                                    <li>
+                                        <p class="value" v-text="numberFormat(item.AceAmount, 0)"></p>
+                                        <p class="text">ACE</p>
+                                    </li>
+                                    <li>
+                                        <p class="value" v-text="numberFormat(item.EP, 2)"></p>
+                                        <p class="text" v-text="language.LI_TEXT_2">EP數量</p>
+                                    </li>
+                                    <li>
+                                        <p class="value" v-text="numberFormat(item.RP, 2)"></p>
+                                        <p class="text" v-text="language.LI_TEXT_3">RP數量</p>
+                                    </li>
+                                    <li>
+                                        <p class="value" v-text="numberFormat(item.SP, 2)"></p>
+                                        <p class="text" v-text="language.LI_TEXT_4">SP數量</p>
+                                    </li>
+                                </ul>
+                                <div class="bottom clearfix">
+                                    <div class="left">
+                                        <i class="iconfont iconxing" v-for="i in item.LevelNumber"></i>
+                                    </div>
+                                    <span class="right" v-text="item.CreateTime"></span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div v-if="pageModel.isLoadMore" class="load_more clearfix">
+                        <van-loading color="black"></van-loading>
+                        <span class="load_text" v-text="language.LOADING_TEXT"></span>
+                    </div>
+                    <div v-if="pageModel.isLoadComplete" class="load_more_complete">
+                        <span class="load_text" v-text="language.NOMORE"></span>
+                    </div>
+                </div>
+                <van-dialog v-model="isPasswordInput" v-bind:title="language.CONFIRM_TRADE" v-bind:before-close="checkPassword" show-cancel-button>
+                    <input type="password" ref="passwordBox" maxlength="16" class="pwd_box" v-model="form.password" v-bind:placeholder="language.INPUT_TRANSFER_PASSWORD" />
+                </van-dialog>
+                <button v-show="pageModel.list.length !== 0" class="confirm_button full" v-bind:class="{'safe': APP.CONFIG.IsSafeArea()}" v-text="language.BUTTON_TEXT_1" @click="allInOne">一鍵歸集</button>
+            </div>
+        </div>
+    </div>
+    <script src="../../content/js/vue.js"></script>
+    <script src="../../content/js/vant.min.js"></script>
+    <script src="../../content/js/base.js"></script>
+    <script src="../../content/js/pages/center/sub.account.js"></script>
+</body>
+</html>

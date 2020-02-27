@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover" />
+    <title></title>
+    <link href="../../../content/css/base.css" rel="stylesheet" />
+    <link href="../../../content/css/vant.css" rel="stylesheet" />
+    <link href="../../../content/css/pages/center/security/reset.question.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <div id="app">
+        <div id="app-head" class="van-hairline--bottom" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+            <i id="app-back-button" class="iconfont iconzuo right-back"></i>
+            <div class="app-head-text" v-text="language.TITLE_TEXT"></div>
+        </div>
+        <div id="app-content">
+            <div v-if="isLoading" class="loading-box p50">
+                <van-loading color="black"></van-loading>
+                <p class="loading-text" v-text="language.LOADING_TEXT">正在加載...</p>
+            </div>
+            <div v-else v-cloak>
+                <div class="input_group">
+                    <div class="input_line van-hairline--bottom">
+                        <span class="input_text" v-text="language.INPUT_TEXT_1">選擇問題1</span>
+                        <div class="input_control r-1"
+                             v-bind:class="{'gray': !form.q1}"
+                             @click="chooseQuestion(1)"
+                             v-text="display.q1"></div>
+                        <i class="iconfont iconjiantou arrow"></i>
+                    </div>
+                    <div class="input_line">
+                        <span class="input_text" v-text="language.INPUT_TEXT_6">答案</span>
+                        <input type="text" class="input_control" v-model="form.a1" v-bind:placeholder="language.INPUT_PLACEHOLDER_1" maxlength="30" />
+                    </div>
+                </div>
+                <div class="input_group">
+                    <div class="input_line van-hairline--bottom">
+                        <span class="input_text" v-text="language.INPUT_TEXT_2">選擇問題2</span>
+                        <div class="input_control r-1"
+                             v-bind:class="{'gray': !form.q2}"
+                             @click="chooseQuestion(2)"
+                             v-text="display.q2"></div>
+                        <i class="iconfont iconjiantou arrow"></i>
+                    </div>
+                    <div class="input_line">
+                        <span class="input_text" v-text="language.INPUT_TEXT_6">答案</span>
+                        <input type="text" class="input_control" v-model="form.a2" v-bind:placeholder="language.INPUT_PLACEHOLDER_2" maxlength="30" />
+                    </div>
+                </div>
+                <div class="input_group">
+                    <div class="input_line van-hairline--bottom">
+                        <span class="input_text" v-text="language.INPUT_TEXT_3">選擇問題3</span>
+                        <div class="input_control r-1"
+                             v-bind:class="{'gray': !form.q3}"
+                             @click="chooseQuestion(3)"
+                             v-text="display.q3"></div>
+                        <i class="iconfont iconjiantou arrow"></i>
+                    </div>
+                    <div class="input_line">
+                        <span class="input_text" v-text="language.INPUT_TEXT_6">答案</span>
+                        <input type="text" class="input_control" v-model="form.a3" v-bind:placeholder="language.INPUT_PLACEHOLDER_3" maxlength="30" />
+                    </div>
+                </div>
+                <div class="input_group">
+                    <div class="input_line van-hairline--bottom">
+                        <span class="input_text" v-text="language.INPUT_TEXT_4">交易密碼</span>
+                        <input type="text" class="input_control" v-model="form.password" v-bind:placeholder="language.INPUT_PLACEHOLDER_4" maxlength="16" />
+                    </div>
+                    <div class="input_line">
+                        <span class="input_text" v-text="language.INPUT_TEXT_5">證件號碼</span>
+                        <input type="text" class="input_control" v-model="form.idcard" v-bind:placeholder="language.INPUT_PLACEHOLDER_5" maxlength="30" />
+                    </div>
+                </div>
+                <button class="confirm_button" @click="checkInput" v-text="language.BUTTON_1">確認提交</button>
+                <van-popup v-model="isShow" position="bottom">
+                    <van-picker v-bind:columns="currnetQuestionList"
+                                @cancel="isShow = false"
+                                @confirm="selectedItem"
+                                show-toolbar="true"
+                                v-bind:confirm-button-text="language.PICKER_BUTTON_1"
+                                v-bind:cancel-button-text="language.PICKER_BUTTON_2"
+                                v-bind:title="language.SELECT_QUESTION"></van-picker>
+                </van-popup>
+            </div>
+        </div>
+    </div>
+    <script src="../../../content/js/vue.js"></script>
+    <script src="../../../content/js/vant.min.js"></script>
+    <script src="../../../content/js/base.js"></script>
+    <script src="../../../content/js/pages/center/security/reset.question.js"></script>
+</body>
+</html>

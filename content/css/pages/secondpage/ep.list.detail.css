@@ -1,0 +1,132 @@
+﻿.block {
+    width: calc(100% - 20px);
+    background-color: white;
+    padding: 15px;
+    margin: 0 auto;
+    margin-top: 10px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+    .block.np {
+        padding: 0;
+        font-size: .9em;
+    }
+
+    .block .van-hairline--top-bottom::after {
+        border: 0;
+    }
+
+    .block .title {
+        font-weight: bold;
+        font-size: 1em;
+        color: #068dfe;
+    }
+
+    .block.top .avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: block;
+        margin: 0 auto;
+        border: 1px solid #efefef;
+    }
+
+    .block.top .fn {
+        height: 20px;
+        line-height: 20px;
+        text-align: center;
+        color: #068dfe;
+        margin-top: 10px;
+    }
+
+    .block .content {
+        margin-top: 15px;
+    }
+
+    .block.sell .content .number {
+        text-align: center;
+    }
+
+        .block.sell .content .number .value {
+            font-size: 3em;
+            font-weight: bold;
+            color: #5c6875;
+        }
+
+        .block.sell .content .number sub {
+            font-size: .7em;
+            color: #5c6875;
+        }
+
+    .block.sell .content .bottom {
+        margin-top: 15px;
+        height: 30px;
+    }
+
+        .block.sell .content .bottom .support_pay {
+            float: left;
+            height: 30px;
+            display: flex;
+        }
+
+            .block.sell .content .bottom .support_pay .pay_icon {
+                display: block;
+                height: 25px;
+                width: 25px;
+                margin-top: 2.5px;
+            }
+
+        .block.sell .content .bottom .time {
+            font-size: .8em;
+            float: right;
+            color: #8e8e8e;
+            height: 30px;
+            line-height: 30px;
+        }
+
+    .block .content .table {
+        width: 100% !important;
+        margin: 0 !important;
+        background-color: #fff;
+        border: 0 !important;
+    }
+
+        .block .content .table thead > tr > th {
+            font-size: .9em;
+            color: #5c6875;
+            border: 0;
+            border-bottom: 1px solid #F2F5F8;
+            padding: 8px;
+            vertical-align: bottom;
+            text-align: left;
+        }
+
+        .block .content .table tbody > tr > td {
+            padding: 8px;
+            color: #8896a0;
+            vertical-align: middle;
+            font-size: .8em;
+        }
+
+.confirm_input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    height: 45px;
+    text-align: center;
+    background-color: #f9f9f9;
+    margin-top: 15px;
+    font-size: .9em;
+}
+
+.confirm_button.full {
+    height: initial;
+}
+
+    .confirm_button.full.safe {
+        padding-bottom: 30px;
+    }

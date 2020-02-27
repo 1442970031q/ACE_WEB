@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover" />
+    <title></title>
+    <link href="../../content/css/base.css" rel="stylesheet" />
+    <link href="../../content/css/vant.css" rel="stylesheet" />
+    <link href="../../content/css/pages/center/profit.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <div id="app">
+        <div id="app-head" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+            <i id="app-back-button" class="iconfont iconzuo right-back"></i>
+            <div class="app-head-text" v-text="language.TITLE_TEXT">收益明細</div>
+        </div>
+        <div id="app-content">
+            <div class="input_group">
+                <div class="input_line van-hairline--bottom">
+                    <span class="input_text" v-text="language.INPUT_TEXT_1">查詢日期</span>
+                    <div class="input_control r-1" v-bind:class="{'gray': !dateTimeObj.display}" @click="isShowDateTime = true" v-text="!dateTimeObj.display ? language.INPUT_PLACEHOLDER_1 : dateTimeObj.display">請選擇查詢日期</div>
+                    <i class="iconfont iconjiantou arrow"></i>
+                </div>
+            </div>
+            <div v-if="isSearchMode" v-cloak>
+                <div v-if="dateTimeObj.isLoading" class="loading-box">
+                    <van-loading color="black"></van-loading>
+                    <p class="loading-text" v-text="language.LOADING_TEXT"></p>
+                </div>
+                <div v-else class="week_list">
+                    <p class="title">
+                        <span v-text="dateTimeObj.month+ language.RESULT_TITLE"></span>
+                        <b class="red" v-text="numberFormat(result.MonthTotalMoney, 2)"></b>
+                        <span>EP</span>
+                    </p>
+                    <van-cell-group>
+                        <van-cell v-bind:value="numberFormat(result.FirstWeek, 2)" is-link @click="gotoDetail(1)">
+                            <div slot="title">
+                                <span v-text="language.WEEK_1"></span>
+                                <span class="title_style" v-text="result.FirstBegin+'--'+result.FirstEnd"> </span>
+                            </div>
+                        </van-cell>
+                        <van-cell v-bind:value="numberFormat(result.SecondWeek, 2)" is-link @click="gotoDetail(2)">
+                            <div slot="title">
+                                <span v-text="language.WEEK_2"></span>
+                                <span class="title_style" v-text="result.SecondBegin+'--'+result.SecondEnd"> </span>
+                            </div>
+                        </van-cell>
+                        <van-cell v-bind:value="numberFormat(result.ThirdWeek, 2)" is-link @click="gotoDetail(3)">
+                            <div slot="title">
+                                <span v-text="language.WEEK_3"></span>
+                                <span class="title_style" v-text="result.ThirdBegin+'--'+result.ThirdEnd"> </span>
+                            </div>
+                        </van-cell>
+                        <van-cell v-bind:value="numberFormat(result.FourWeek, 2)" is-link @click="gotoDetail(4)">
+                            <div slot="title">
+                                <span v-text="language.WEEK_4"></span>
+                                <span class="title_style" v-text="result.FourBegin+'--'+result.FourEnd"> </span>
+                            </div>
+                        </van-cell>
+                        <van-cell v-bind:value="numberFormat(result.FiveWeek, 2)" is-link @click="gotoDetail(5)">
+                            <div slot="title">
+                                <span v-text="language.WEEK_5"></span>
+                                <span class="title_style" v-text="result.FiveBegin+'--'+result.FiveEnd"> </span>
+                            </div>
+                        </van-cell>
+                    </van-cell-group>
+                </div>
+            </div>
+        </div>
+        <van-popup v-model="isShowDateTime" position="bottom">
+            <van-datetime-picker v-model="dateTimeObj.value"
+                                 type="year-month"
+                                 v-bind:min-date="dateTimeObj.minDate"
+                                 v-bind:max-date="dateTimeObj.maxDate"
+                                 v-bind:confirm-button-text="language.DATETIME_PICKER_BUTTON_1"
+                                 v-bind:cancel-button-text="language.DATETIME_PICKER_BUTTON_2"
+                                 @cancel="isShowDateTime=false"
+                                 @confirm="confirmDateTime" />
+        </van-popup>
+    </div>
+    <script src="../../content/js/vue.js"></script>
+    <script src="../../content/js/vant.min.js"></script>
+    <script src="../../content/js/base.js"></script>
+    <script src="../../content/js/pages/center/profit.js"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+﻿html, body {
+    background-color: white;
+}
+
+.top_content {
+    margin-top: 20%;
+}
+
+    .top_content .avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        box-shadow: 0 0 5px #d8d8d8;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .top_content .title {
+        font-weight: bold;
+        height: 20px;
+        line-height: 20px;
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    .top_content .des {
+        font-size: .8em;
+        text-align: center;
+        color: #848484;
+        margin-top: 10px;
+    }
+
+.icon {
+    display: block;
+    width: 150px;
+    margin: 0 auto;
+    margin-top: 50px;
+    opacity: .5;
+}

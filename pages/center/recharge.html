@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover" />
+    <title></title>
+    <link href="../../content/css/base.css" rel="stylesheet" />
+    <link href="../../content/css/vant.css" rel="stylesheet" />
+    <link href="../../content/css/pages/center/recharge.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <div id="app">
+        <div class="bg"></div>
+        <div id="app-head" class="fixed bg-none" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+            <i id="app-back-button" class="iconfont iconzuo right-back"></i>
+            <div class="app-head-text" v-text="language.TITLE_TEXT">充值RP</div>
+            <button v-show="!isLoading" class="submit-button" v-text="language.BUTTON_3" @click="gotoMyRecharge">我的充值</button>
+        </div>
+        <div id="app-content" v-bind:style="{'paddingTop': (45 + statusbarHeight) + 'px'}">
+            <div v-if="isLoading" class="loading-box">
+                <van-loading color="black"></van-loading>
+                <p class="loading-text" v-text="language.LOADING_TEXT">正在載入...</p>
+            </div>
+            <div v-else v-cloak>
+                <div class="qr_box">
+                    <img src="../../content/img/USDT.png" class="usdt" />
+                    <p class="caption" v-text="language.CAPTION_TEXT">USDT充值地址</p>
+                    <img v-bind:src="pageModel.ImageAddress" class="qr" />
+                    <p class="address" v-text="pageModel.Address"></p>
+                </div>
+                <div class="bottom_buttons">
+                    <button class="button" @click="gotoNewRecharge">
+                        <i class="iconfont iconUSDT"></i>
+                        <span v-text="language.BUTTON_4">提交充值記錄</span>
+                    </button>
+                    <button class="button" @click="gotoCalculator">
+                        <i class="iconfont iconjisuanqi1"></i>
+                        <span v-text="language.BUTTON_5">充值計算器</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../../content/js/vue.js"></script>
+    <script src="../../content/js/vant.min.js"></script>
+    <script src="../../content/js/base.js"></script>
+    <script src="../../content/js/pages/center/recharge.js"></script>
+</body>
+</html>

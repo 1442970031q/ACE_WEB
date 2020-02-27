@@ -1,0 +1,40 @@
+﻿#app-head {
+    background-color: #068dfe;
+    color: white;
+}
+
+.sell_info {
+    background-color: white;
+    margin: 0 auto;
+    padding: 10px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: #068dfe;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+    .sell_info ul {
+        display: flex;
+    }
+
+        .sell_info ul li {
+            width: 50%;
+            text-align: center;
+        }
+
+            .sell_info ul li .text {
+                font-size: .8em;
+                height: 20px;
+                line-height: 20px;
+                margin-top: 5px;
+                color: white;
+            }
+
+            .sell_info ul li .value {
+                color: white;
+                line-height: 20px;
+                font-size: 1.2em;
+                font-weight: bold;
+            }

@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover" />
+    <title></title>
+    <link href="../../content/css/base.css" rel="stylesheet" />
+    <link href="../../content/css/vant.css" rel="stylesheet" />
+    <link href="../../content/css/pages/center/my.fans.list.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <div id="app">
+        <div id="app-head" class="fixed" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+            <i id="app-back-button" class="iconfont iconzuo right-back"></i>
+            <div class="app-head-text" v-text="language.TITLE_TEXT">EP轉出</div>
+            <button class="submit-button" @click="isShowTip = true"><i class="iconfont iconbangzhu"></i></button>
+        </div>
+        <div id="app-content" v-bind:style="{'paddingTop': (45 + statusbarHeight) + 'px'}">
+            <div v-if="isLoading" class="loading-box p50">
+                <van-loading color="black"></van-loading>
+                <p class="loading-text" v-text="language.LOADING_TEXT"></p>
+            </div>
+            <div v-else v-cloak>
+                <form action="/">
+                    <van-search class="left_search"
+                                v-model="searchKey"
+                                v-bind:placeholder="language.SERCH_PLAYER_ID"
+                                @search="onSearch"
+                                @focus="isFocus = true"
+                                @blur="isFocus = false">
+                        <i slot="left-icon" class="iconfont iconsousuo"></i>
+                    </van-search>
+                </form>
+                <div class="head">
+                    <ul class="clearfix">
+                        <li class="first"><span v-text="language.SORT">序號</span></li>
+                        <li class="l2"><span v-text="language.ID">ID</span></li>
+                        <li class="l3"><span v-text="language.NICKNAME">暱稱</span></li>
+                        <li class="l4"><span v-text="language.L_AREA">L(总)</span></li>
+                        <li class="l5"><span v-text="language.R_AREA">R(总)</span></li>
+                    </ul>
+                </div>
+                <div class="list">
+                    <ul class="clearfix">
+                        <li class="first"><span>1.1</span></li>
+                        <li class="l2" v-text="layer.FirstLayer.FlowNumber"><span></span></li>
+                        <li class="l3" v-text="layer.FirstLayer.NickName"><span></span></li>
+                        <li class="l4" v-text="numberFormat(layer.FirstLayer.LTotal, 0)"><span></span></li>
+                        <li class="l5" v-text="numberFormat(layer.FirstLayer.RTotal, 0)"><span></span></li>
+                    </ul>
+                    <hr class="line" />
+                    <ul class="clearfix" v-if="layer.SecondLayer[0].Id==0">
+                        <li class="first"><span>2.1</span></li>
+                        <li class="l2 blue full">
+                            <span class="btn" @click="reportByNew(layer.SecondLayer[0])" v-text="language.REGISTER_NEW_ACCOUNT">註冊新玩家</span>
+                            <span class="btn" @click="reportBySub(layer.SecondLayer[0])" v-text="language.REGISTER_SUB_ACCOUNT">新增子帳戶</span>
+                        </li>
+                    </ul>
+                    <ul class="clearfix" v-else>
+                        <li class="first"><span>2.1</span></li>
+                        <li class="l2 blue"><span v-text="layer.SecondLayer[0].FlowNumber" @click="loadList(layer.SecondLayer[0])"></span></li>
+                        <li class="l3"><span v-text="layer.SecondLayer[0].NickName"></span></li>
+                        <li class="l4"><span v-text="numberFormat(layer.SecondLayer[0].LTotal, 0)"></span></li>
+                        <li class="l5"><span v-text="numberFormat(layer.SecondLayer[0].RTotal, 0)"></span></li>
+                    </ul>
+                    <ul class="clearfix" v-if="layer.SecondLayer[1].Id==0">
+                        <li class="first"><span>2.2</span></li>
+                        <li class="l2 blue full">
+                            <span class="btn" @click="reportByNew(layer.SecondLayer[1])" v-text="language.REGISTER_NEW_ACCOUNT">註冊新玩家</span>
+                            <span class="btn" @click="reportBySub(layer.SecondLayer[1])" v-text="language.REGISTER_SUB_ACCOUNT">新增子帳戶</span>
+                        </li>
+                    </ul>
+                    <ul class="clearfix" v-else>
+                        <li class="first"><span>2.2</span></li>
+                        <li class="l2 blue"><span v-text="layer.SecondLayer[1].FlowNumber" @click="loadList(layer.SecondLayer[1])"></span></li>
+                        <li class="l3"><span v-text="layer.SecondLayer[1].NickName"></span></li>
+                        <li class="l4"><span v-text="numberFormat(layer.SecondLayer[1].LTotal, 0)"></span></li>
+                        <li class="l5"><span v-text="numberFormat(layer.SecondLayer[1].RTotal, 0)"></span></li>
+                    </ul>
+                    <div v-if="isEmptyParent">
+                        <hr class="line" />
+                        <ul class="clearfix" v-if="layer.ThirdLayer[0].Id==0&&layer.ThirdLayer[0].FlowNumber==language.CONT_REGISTER">
+                            <li class="first"><span>3.1</span></li>
+                            <li class="l2"><span>-</span></li>
+                            <li class="l3"><span>-</span></li>
+                            <li class="l4"><span>-</span></li>
+                            <li class="l5"><span>-</span></li>
+                        </ul>
+                        <ul class="clearfix" v-else-if="layer.ThirdLayer[0].Id==0">
+                            <li class="first"><span>3.1</span></li>
+                            <li class="l2 blue full">
+                                <span class="btn" @click="reportByNew(layer.ThirdLayer[0])" v-text="language.REGISTER_NEW_ACCOUNT">註冊新玩家</span>
+                                <span class="btn" @click="reportBySub(layer.ThirdLayer[0])" v-text="language.REGISTER_SUB_ACCOUNT">新增子帳戶</span>
+                            </li>
+                        </ul>
+                        <ul class="clearfix" v-else>
+                            <li class="first"><span>3.1</span></li>
+                            <li class="l2 blue"><span v-text="layer.ThirdLayer[0].FlowNumber" @click="loadList(layer.ThirdLayer[0])"></span></li>
+                            <li class="l3"><span v-text="layer.ThirdLayer[0].NickName"></span></li>
+                            <li class="l4"><span v-text="numberFormat(layer.ThirdLayer[0].LTotal, 0)"></span></li>
+                            <li class="l5"><span v-text="numberFormat(layer.ThirdLayer[0].RTotal, 0)"></span></li>
+                        </ul>
+                        <ul class="clearfix" v-if="layer.ThirdLayer[1].Id==0&&layer.ThirdLayer[1].FlowNumber==language.CONT_REGISTER">
+                            <li class="first"><span>3.2</span></li>
+                            <li class="l2"><span>-</span></li>
+                            <li class="l3"><span>-</span></li>
+                            <li class="l4"><span>-</span></li>
+                            <li class="l5"><span>-</span></li>
+                        </ul>
+                        <ul class="clearfix" v-else-if="layer.ThirdLayer[1].Id==0">
+                            <li class="first"><span>3.2</span></li>
+                            <li class="l2 blue full">
+                                <span class="btn" @click="reportByNew(layer.ThirdLayer[1])" v-text="language.REGISTER_NEW_ACCOUNT">註冊新玩家</span>
+                                <span class="btn" @click="reportBySub(layer.ThirdLayer[1])" v-text="language.REGISTER_SUB_ACCOUNT">新增子帳戶</span>
+                            </li>
+                        </ul>
+                        <ul class="clearfix" v-else>
+                            <li class="first"><span>3.2</span></li>
+                            <li class="l2 blue"><span v-text="layer.ThirdLayer[1].FlowNumber" @click="loadList(layer.ThirdLayer[1])"></span></li>
+                            <li class="l3"><span v-text="layer.ThirdLayer[1].NickName"></span></li>
+                            <li class="l4"><span v-text="numberFormat(layer.ThirdLayer[1].LTotal, 0)"></span></li>
+                            <li class="l5"><span v-text="numberFormat(layer.ThirdLayer[1].RTotal, 0)"></span></li>
+                        </ul>
+                        <ul class="clearfix" v-if="layer.ThirdLayer[2].Id==0&&layer.ThirdLayer[2].FlowNumber==language.CONT_REGISTER">
+                            <li class="first"><span>3.3</span></li>
+                            <li class="l2"><span>-</span></li>
+                            <li class="l3"><span>-</span></li>
+                            <li class="l4"><span>-</span></li>
+                            <li class="l5"><span>-</span></li>
+                        </ul>
+                        <ul class="clearfix" v-else-if="layer.ThirdLayer[2].Id==0">
+                            <li class="first"><span>3.3</span></li>
+                            <li class="l2 blue full">
+                                <span class="btn" @click="reportByNew(layer.ThirdLayer[2])" v-text="language.REGISTER_NEW_ACCOUNT">註冊新玩家</span>
+                                <span class="btn" @click="reportBySub(layer.ThirdLayer[2])" v-text="language.REGISTER_SUB_ACCOUNT">新增子帳戶</span>
+                            </li>
+                        </ul>
+                        <ul class="clearfix" v-else>
+                            <li class="first"><span>3.3</span></li>
+                            <li class="l2 blue"><span v-text="layer.ThirdLayer[2].FlowNumber" @click="loadList(layer.ThirdLayer[2])"></span></li>
+                            <li class="l3"><span v-text="layer.ThirdLayer[2].NickName"></span></li>
+                            <li class="l4"><span v-text="numberFormat(layer.ThirdLayer[2].LTotal, 0)"></span></li>
+                            <li class="l5"><span v-text="numberFormat(layer.ThirdLayer[2].RTotal, 0)"></span></li>
+                        </ul>
+                        <ul class="clearfix" v-if="layer.ThirdLayer[3].Id==0&&layer.ThirdLayer[3].FlowNumber==language.CONT_REGISTER">
+                            <li class="first"><span>3.4</span></li>
+                            <li class="l2"><span>-</span></li>
+                            <li class="l3"><span>-</span></li>
+                            <li class="l4"><span>-</span></li>
+                            <li class="l5"><span>-</span></li>
+                        </ul>
+                        <ul class="clearfix" v-else-if="layer.ThirdLayer[3].Id==0">
+                            <li class="first"><span>3.4</span></li>
+                            <li class="l2 blue full">
+                                <span class="btn" @click="reportByNew(layer.ThirdLayer[3])" v-text="language.REGISTER_NEW_ACCOUNT">註冊新玩家</span>
+                                <span class="btn" @click="reportBySub(layer.ThirdLayer[3])" v-text="language.REGISTER_SUB_ACCOUNT">新增子帳戶</span>
+                            </li>
+                        </ul>
+                        <ul class="clearfix" v-else>
+                            <li class="first"><span>3.4</span></li>
+                            <li class="l2 blue"><span v-text="layer.ThirdLayer[3].FlowNumber" @click="loadList(layer.ThirdLayer[3])"></span></li>
+                            <li class="l3"><span v-text="layer.ThirdLayer[3].NickName"></span></li>
+                            <li class="l4"><span v-text="numberFormat(layer.ThirdLayer[3].LTotal, 0)"></span></li>
+                            <li class="l5"><span v-text="numberFormat(layer.ThirdLayer[3].RTotal, 0)"></span></li>
+                        </ul>
+                    </div>
+                    <div v-if="historyList.length!=0" class="actions">
+                        <button class="btn van-hairline--right" @click="gotoBack" v-text="language.PREVIOUS">向上翻页</button>
+                        <button class="btn" @click="gotoUpLayer" v-text="language.UP_LAYER">上一层</button>
+                    </div>
+                    <button v-if="!isFocus" class="confirm_button full" v-bind:class="{'safe': APP.CONFIG.IsSafeArea()}" @click="myLeftDown" v-text="language.MY_LEFT_UNDEREST">我的最左下</button>
+                </div>
+                <van-popup v-model="isShowTip" v-bind:close-on-click-overlay="false">
+                    <div class="tip">
+                        <h4 v-text="language.FANS_LIST_MAPPING_SHARP">粉丝列表对应图</h4>
+                        <img src="../../content/img/tip_tree.png" class="image" />
+                        <p class="msg" v-text="language.FANS_SHARP_MESSAGE">頁面列表顯示的關係如上圖所示，請注意選擇位置。</p>
+                    </div>
+                    <div class="tip_bottom">
+                        <van-checkbox v-model="showAgainCheckValue">
+                            <span v-text="language.DONT_SHOW"></span>
+                            <i slot="icon"
+                               class="iconfont"
+                               slot-scope="props"
+                               v-bind:class="[props.checked ? 'iconcheckboxchecked' : 'iconcheckboxunchecked']"></i>
+                        </van-checkbox>
+                    </div>
+                    <button class="confirm_button tip_button" @click="isShowTip=false" v-text="language.CONFIRM">確認</button>
+                </van-popup>
+            </div>
+        </div>
+    </div>
+    <script src="../../content/js/vue.js"></script>
+    <script src="../../content/js/vant.min.js"></script>
+    <script src="../../content/js/base.js"></script>
+    <script src="../../content/js/pages/center/my.fans.list.js"></script>
+</body>
+</html>

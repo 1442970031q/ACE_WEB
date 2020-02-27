@@ -1,0 +1,125 @@
+﻿#app-head .submit-button {
+    width: 45px;
+}
+
+.list_content {
+    padding-bottom: 60px;
+}
+
+    .list_content.safe {
+        padding-bottom: 75px;
+    }
+
+.list {
+    width: calc(100% - 20px);
+    margin: 0 auto;
+    margin-top: 10px;
+}
+
+    .list > li {
+        border-radius: 4px;
+        background-color: white;
+        padding: 10px;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+    }
+
+    .list li .top {
+        height: 40px;
+        line-height: 40px;
+    }
+
+        .list li .top .avatar {
+            float: left;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: block;
+            border: 1px solid #f9f9f9;
+        }
+
+        .list li .top .top_right {
+            float: left;
+            width: calc(100% - 50px);
+            margin-left: 10px;
+        }
+
+        .list li .top .fn {
+            font-size: 1em;
+            font-weight: bold;
+            height: 20px;
+            line-height: 20px;
+        }
+
+            .list li .top .fn.small {
+                font-size: .8em;
+            }
+
+    .list li .middle {
+        margin-top: 10px;
+    }
+
+        .list li .middle .info {
+            width: 100%;
+            display: flex;
+        }
+
+            .list li .middle .info li {
+                width: 25%;
+                text-align: center;
+            }
+
+                .list li .middle .info li p {
+                    height: 20px;
+                    line-height: 20px;
+                }
+
+                .list li .middle .info li .value {
+                    font-size: .9em;
+                    color: #5c6875;
+                }
+
+                .list li .middle .info li .text {
+                    font-size: .7em;
+                    color: #068dfe;
+                }
+
+    .list li .bottom {
+        border-top: 1px solid #f9f9f9;
+        margin-top: 10px;
+        padding-top: 10px;
+    }
+
+        .list li .bottom .left {
+            float: left;
+            font-size: .8em;
+            color: #eacf00;
+        }
+
+        .list li .bottom .right {
+            float: right;
+            font-size: .7em;
+            color: #b1b1b1;
+        }
+
+        .confirm_button.full {
+            height: initial;
+        }
+
+    .confirm_button.full.safe {
+        padding-bottom: 30px;
+    }
+
+.pwd_box {
+    height: 55px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    background-color: #f9f9f9;
+    font-size: .9em;
+    margin-top: 15px;
+    border-top: 1px solid #f4f4f4;
+}

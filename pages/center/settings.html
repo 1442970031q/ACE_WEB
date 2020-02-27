@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no,viewport-fit=cover" />
+    <title></title>
+    <link href="../../content/css/base.css" rel="stylesheet" />
+    <link href="../../content/css/vant.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <div id="app">
+        <div id="app-head" class="fixed van-hairline--bottom" v-bind:style="{'paddingTop': statusbarHeight + 'px'}">
+            <i id="app-back-button" class="iconfont iconzuo right-back"></i>
+            <div class="app-head-text" v-text="language.TITLE_TEXT">設置</div>
+        </div>
+        <div id="app-content" v-bind:style="{'paddingTop': (45 + statusbarHeight) + 'px'}">
+            <van-cell-group class="mt-10">
+                <van-cell v-bind:title="language.CELL_TEXT_1" @click="cofirmClear" is-link v-bind:value="fileSize"></van-cell>
+                <van-cell v-bind:title="language.CELL_TEXT_2" v-bind:value="version"></van-cell>
+                <van-cell v-bind:title="language.CELL_TEXT_3" v-bind:value="APP.CONFIG.IS_RUNTIME ? 'v' + plus.runtime.innerVersion : 'v1.0'"></van-cell>
+            </van-cell-group>
+            <van-cell-group class="mt-10">
+                <van-cell v-bind:title="language.CELL_TEXT_5" is-link @click="APP.GLOBAL.gotoNewWindow('feedbackPage', 'child/feedback')"></van-cell>
+            </van-cell-group>
+        </div>
+    </div>
+    <script src="../../content/js/vue.js"></script>
+    <script src="../../content/js/vant.min.js"></script>
+    <script src="../../content/js/base.js"></script>
+    <script src="../../content/js/pages/center/settings.js"></script>
+</body>
+</html>

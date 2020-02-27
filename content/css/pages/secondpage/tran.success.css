@@ -1,0 +1,24 @@
+﻿.tip {
+    text-align: center;
+    padding-top: 30%;
+}
+
+    .tip .icon {
+        font-size: 5em;
+        color: green;
+    }
+
+    .tip .text {
+        font-weight: 500;
+        margin-top: 5px;
+    }
+
+.context {
+    text-align: center;
+    width: 90%;
+    font-size: .9em;
+    margin: 0 auto;
+    display: block;
+    margin-top: 10px;
+    color: #5c6875;
+}

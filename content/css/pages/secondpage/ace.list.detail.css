@@ -1,0 +1,99 @@
+﻿.block {
+    width: calc(100% - 20px);
+    background-color: white;
+    padding: 15px;
+    margin: 0 auto;
+    margin-top: 10px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+    .block .title {
+        font-weight: bold;
+        font-size: 1em;
+        color: #068dfe;
+    }
+
+    .block.top .avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: block;
+        margin: 0 auto;
+        border: 1px solid #efefef;
+    }
+
+    .block.top .fn {
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        color: #068dfe;
+    }
+
+    .block .content {
+        margin-top: 15px;
+    }
+
+    .block.sell .content ul {
+        display: flex;
+    }
+
+        .block.sell .content ul li {
+            width: 33.3333%;
+            text-align: center;
+        }
+
+            .block.sell .content ul li sup {
+                font-size: .5em;
+                margin-left: -4px;
+            }
+
+            .block.sell .content ul li .value {
+                font-size: 1.1em;
+                color: #676767;
+                height: 25px;
+                line-height: 25px;
+            }
+
+            .block.sell .content ul li .text {
+                font-size: .8em;
+                height: 20px;
+                line-height: 20px;
+                margin-top: 5px;
+                color: #068dfe;
+            }
+
+    .block.sell .content .time {
+        font-size: .8em;
+        margin-top: 15px;
+        text-align: right;
+        color: #8e8e8e;
+        height: 20px;
+        line-height: 20px;
+    }
+
+    .block .content .table {
+        width: 100% !important;
+        margin: 0 !important;
+        background-color: #fff;
+        border: 0 !important;
+    }
+
+        .block .content .table thead > tr > th {
+            font-size: .9em;
+            color: #5c6875;
+            border: 0;
+            border-bottom: 1px solid #F2F5F8;
+            padding: 8px;
+            vertical-align: bottom;
+            text-align: left;
+        }
+
+        .block .content .table tbody > tr > td {
+            padding: 8px;
+            color: #8896a0;
+            vertical-align: middle;
+            font-size: .8em;
+        }

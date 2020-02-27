@@ -1,0 +1,97 @@
+﻿.search_player.van-loading {
+    width: 25px;
+    height: 25px;
+}
+
+.van-loading {
+    width: 60px;
+    height: 60px;
+}
+
+    .van-loading .van-loading__circular circle {
+        stroke-width: 1;
+    }
+
+#app-content {
+    padding-bottom: 10px;
+}
+
+.star {
+    color: #eacf00;
+}
+
+.red {
+    color: red;
+}
+
+.input_group {
+    box-shadow: 0px 0px 10px #f1f1f1;
+}
+
+    .input_group .input_line .input_text {
+        color: #5c6875;
+    }
+
+    .input_group .input_line .input_control .pos {
+        display: flex;
+        width: 160px;
+        border: 1px solid #068dfe;
+        border-radius: 4px;
+    }
+
+        .input_group .input_line .input_control .pos .block {
+            width: 80px;
+            height: 25px;
+            text-align: center;
+        }
+
+            .input_group .input_line .input_control .pos .block.checked {
+                background-color: #068dfe;
+                color: white;
+            }
+
+            .input_group .input_line .input_control .pos .block:first-child {
+                border-right: 1px solid #068dfe;
+            }
+
+.warn {
+    padding-top: 10px;
+}
+
+    .warn .title {
+        text-align: center;
+        font-size: .9em;
+    }
+
+    .warn .rules {
+        color: #7b7b7b;
+        width: 80%;
+        margin: 10px auto;
+    }
+
+        .warn .rules li {
+            list-style-type: disc;
+            font-size: .75em;
+            margin: 2px 0;
+        }
+
+            .warn .rules li.main {
+                color: #f9bc0b;
+            }
+
+.warn_container {
+    padding: 10px;
+    font-size: .8em;
+    color: #9c9c9c;
+    background-color: #fbfbfb;
+    text-align: left;
+}
+
+    .warn_container .warn_title {
+        font-weight: bold;
+        font-size: 1.1em;
+    }
+
+    .warn_container .warn_text {
+        color: #b7b7b7;
+    }
